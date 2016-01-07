@@ -1,0 +1,81 @@
+PODS:
+  - AFNetworking (3.0.4):
+    - AFNetworking/NSURLSession (= 3.0.4)
+    - AFNetworking/Reachability (= 3.0.4)
+    - AFNetworking/Security (= 3.0.4)
+    - AFNetworking/Serialization (= 3.0.4)
+    - AFNetworking/UIKit (= 3.0.4)
+  - AFNetworking/NSURLSession (3.0.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.0.4)
+  - AFNetworking/Security (3.0.4)
+  - AFNetworking/Serialization (3.0.4)
+  - AFNetworking/UIKit (3.0.4):
+    - AFNetworking/NSURLSession
+  - DateTools (1.7.0)
+  - DTCoreText (1.6.17):
+    - DTFoundation/Core (~> 1.7.5)
+    - DTFoundation/DTAnimatedGIF (~> 1.7.5)
+    - DTFoundation/DTHTMLParser (~> 1.7.5)
+    - DTFoundation/UIKit (~> 1.7.5)
+  - DTFoundation/Core (1.7.9)
+  - DTFoundation/DTAnimatedGIF (1.7.9)
+  - DTFoundation/DTHTMLParser (1.7.9):
+    - DTFoundation/Core
+  - DTFoundation/UIKit (1.7.9):
+    - DTFoundation/Core
+  - GPUImage (0.1.7)
+  - GRMustache (7.3.2):
+    - JRSwizzle (~> 1.0)
+  - JRSwizzle (1.0)
+  - MBProgressHUD (0.9.2)
+  - MJRefresh (3.1.0)
+  - MMPlaceHolder (1.9)
+  - Reachability (3.2)
+  - RESideMenu (4.0.7)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
+  - TBXML (1.5)
+  - TOWebViewController (2.2.2):
+    - TOWebViewController/Core (= 2.2.2)
+  - TOWebViewController/Core (2.2.2)
+  - TTTAttributedLabel (1.13.4)
+
+DEPENDENCIES:
+  - AFNetworking
+  - DateTools
+  - DTCoreText
+  - GPUImage
+  - GRMustache
+  - MBProgressHUD
+  - MJRefresh
+  - MMPlaceHolder
+  - Reachability
+  - RESideMenu
+  - SDWebImage
+  - TBXML
+  - TOWebViewController
+  - TTTAttributedLabel
+
+SPEC CHECKSUMS:
+  AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
+  DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
+  DTCoreText: 3ea8bba23dd2141ba18adb227a7dd33a822df1c4
+  DTFoundation: 70a0765e3596f82dd421832e95c65e2166eb3102
+  GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
+  GRMustache: ebe6104fd30a6d22c1f36af131e19e2dbf7cd292
+  JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
+  MMPlaceHolder: 40212b9dfe8760134b1b2fce3232f0d46200178f
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  RESideMenu: f24c508404b49c667344c54aba7e590883533958
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
+  TBXML: 9f9dadb239f2f2af1dadb87fe43a0ce6e479379a
+  TOWebViewController: 7250caf720b8b96b4f02bcff0fef168ae290a0d9
+  TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
+
+COCOAPODS: 0.39.0

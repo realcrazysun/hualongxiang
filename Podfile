@@ -1,0 +1,19 @@
+platform :ios, '7.0'
+inhibit_all_warnings!
+source 'https://github.com/CocoaPods/Specs.git'
+
+
+pod 'RESideMenu'
+pod 'AFNetworking'
+pod 'MJRefresh'
+pod 'SDWebImage'
+pod 'DateTools'
+pod 'DTCoreText'
+pod 'TOWebViewController'
+pod 'TTTAttributedLabel'
+pod 'MBProgressHUD'
+pod 'Reachability'
+pod 'GPUImage'
+pod 'TBXML'
+pod 'GRMustache'
+pod 'MMPlaceHolder'
