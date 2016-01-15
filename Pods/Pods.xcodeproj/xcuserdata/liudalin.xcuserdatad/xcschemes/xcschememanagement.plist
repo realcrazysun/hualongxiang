@@ -44,6 +44,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MJExtension.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MJRefresh.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -97,7 +102,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0C9D7D8F10DC8DE3A52AB29BB33F34A4</key>
+		<key>0C52E2716E4DB04109306404C40B8A9B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,22 +112,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>2786EB8E81832112E5D81B4F04C88C55</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>31FF44B5E2FF8CF00090950A8B67AFF6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>37B75A26A521521529BFB2CDF53946B4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>4B9B74B1D63B58F82B1AA0944343D037</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>53288F401236B5A802D716B6C7CBD498</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -133,16 +133,6 @@
 			<true/>
 		</dict>
 		<key>6610362E50A6DE8BACCA1F2885CD9157</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7000AAC26329555494E5D2EAF0D66695</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>76038770B8F94A247E98D3397399CDAE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -162,12 +152,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B4AB9DD74D72F28EAE14BF5EE98E9909</key>
+		<key>B23B3D15FFC0FC9893968F478086D58D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DF19D7AB2554B51D16F86B13548E688E</key>
+		<key>C16818D9453EC9DC65BA048CD0B37252</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C28681793ECA7CBF8E6297F207E7D1FF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CC10D023E2AF94BD971C29501BEEE975</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA13E95593119F9F62F98D637F6E0E79</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -177,7 +182,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F2FE8FC304B0CF6E64D6B8A68EB15797</key>
+		<key>E4771DA447DAC4115A0074E04D9151F2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F581C68700F1588351ABC0CC5E3BB630</key>
 		<dict>
 			<key>primary</key>
 			<true/>
