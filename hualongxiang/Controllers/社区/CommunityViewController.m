@@ -9,7 +9,7 @@
 #import "CommunityViewController.h"
 #import "CommonDefines.h"
 
-
+#import "AFHTTPSessionManagerTool.h"
 #import "ActivityInfoController.h"
 #import "HLXApi.h"
 #import "CommonDefines.h"
@@ -17,9 +17,14 @@
 #import "ActivityInfoTableViewCell.h"
 #import "ActivityInfo.h"
 #import "CommunityHeaderView.h"
+#import "MBProgressHUD.h"
+#import "Utils.h"
+#import "CommuityModel.h"
+#import "MJRefresh.h"
+#import "NSDateFormatter+Singleton.h"
 static NSString* reuseIdentifier = @"activityInfo";
-@interface CommunityViewController ()
-
+@interface CommunityViewController ()<UIScrollViewDelegate>
+@property(nonatomic,strong)CommunityHeaderView* head;
 @end
 
 @implementation CommunityViewController
@@ -46,13 +51,46 @@ static NSString* reuseIdentifier = @"activityInfo";
 #warning 要用tableHeaderView 而不能用viewForHeaderInSection  否则无法响应点击事件
 #warning CommunityHeaderView 直接设置为tableHeaderView会出现诡异情况 。。nnd
     CGRect frame = CGRectMake(0, 0, self.tableView.frame.size.width, 300);
-    UIView* headerView = [[UIView alloc] initWithFrame:frame];
+    UIView* view = [[UIView alloc] initWithFrame:frame];
     
-    CommunityHeaderView* view  = [[[NSBundle mainBundle]loadNibNamed:@"CommunityHeaderView" owner:nil options:nil] firstObject];
-    view.frame = frame;
-    [view initSubViews];
-    [headerView addSubview:view];
-    self.tableView.tableHeaderView = headerView ;
+    _head  = [[[NSBundle mainBundle]loadNibNamed:@"CommunityHeaderView" owner:nil options:nil] firstObject];
+    _head.frame = frame;
+    [view addSubview:_head];
+    _head.scrollView.delegate = self;
+    self.tableView.tableHeaderView = view ;
+    
+}
+
+-(void)refresh{
+    [super refresh];
+    
+    [AFHTTPSessionManagerTool sendHttpPost:HLXAPI_JUHEBANKUAI
+                                    prefix:HLXAPI_PREFIX
+                                parameters:nil
+                                   success:^(NSURLSessionDataTask * task, id responseObject) {
+                                       ResponseRootObject* model = [ResponseRootObject mj_objectWithKeyValues:responseObject];
+                                       if (![model.ret isEqualToString:@"0"]) {
+                                           NSLog(@"数据返回异常");
+                                       }
+                                       CommuityModel* comModel = [CommuityModel mj_objectWithKeyValues:model.data];
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           NSDateFormatter* formatter =  [NSDateFormatter new];
+                                           formatter.dateFormat = @"MM-dd HH:mm";
+                                           NSString* time = [formatter stringFromDate:self.tableView.mj_header.lastUpdatedTime];
+                                           [_head initData:comModel.attention recommend:comModel.recommend lastRefreshTime:time];
+                                       });
+                                       
+                                   }
+                                   failure:^(NSURLSessionDataTask * task, NSError * error) {
+                                       MBProgressHUD *HUD = [Utils createHUD];
+                                       HUD.mode = MBProgressHUDModeCustomView;
+                                       HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"HUD-error"]];
+                                       HUD.detailsLabelText = [NSString stringWithFormat:@"%@", error.userInfo[NSLocalizedDescriptionKey]];
+                                       [HUD hide:YES afterDelay:1];
+                                       [self.tableView reloadData];
+                                       
+                                   }];
+    
     
 }
 
@@ -74,5 +112,10 @@ static NSString* reuseIdentifier = @"activityInfo";
     return 0;
 }
 
+#pragma mark--scrollView delegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView;{
+    _head.pageControl.currentPage = (_head.scrollView.contentOffset.x/_head.scrollView.frame.size.width);
+    //    NSLog(@"%d",_head.pageControl.currentPage);
+}
 @end
 

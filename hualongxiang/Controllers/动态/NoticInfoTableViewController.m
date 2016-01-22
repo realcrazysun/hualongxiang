@@ -59,21 +59,24 @@
         {
             DynamicInfoCellAD* cell = [[DynamicInfoCellAD alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier3];
             cell.titleLabel.text        = object.title;
-            [cell setImgUrl:[object.attaches[0] objectForKey:@"attachurl"]];
+            if (object.attaches&&object.attaches.count>0) {
+                [cell setImgUrl:[object.attaches[0] objectForKey:@"attachurl"]];
+                
+            }
             return cell;
         }
         default:
-             break;
+            break;
     }
-
+    
     
     DynamicInfoCellOnePic* cell = [[DynamicInfoCellOnePic alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     cell.titleLabel.text = @"";
     cell.nameLabel.text = @"";
     cell.readcountLabel.text = @"";
-
+    
     return cell;
-
+    
 }
 
 -(NSArray*)parse:(ResponseRootObject *)response{
@@ -101,7 +104,7 @@
 }
 
 -(NoticInfoTableViewCellType)typeForRowAtIndexPath:(NSIndexPath *)indexPath{
-     NoticeListInfoObject* object = self.objects[indexPath.row];
+    NoticeListInfoObject* object = self.objects[indexPath.row];
     if([object.type isEqualToString:@"101"] && object.attaches.count == 1){
         return NoticInfoTableViewCellOnePic;
     }
@@ -114,6 +117,6 @@
     }
     NSLog(@"%@---%@",object.type,object.title);
     return NoticInfoTableViewCellAD;
-
+    
 }
 @end

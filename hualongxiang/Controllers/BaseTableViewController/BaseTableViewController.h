@@ -14,4 +14,5 @@
 @property(nonatomic,strong) Class objClass;
 @property(nonatomic,copy) NSString * (^generateURL)(NSUInteger page);
 -(NSArray*)parse:(ResponseRootObject*)response;
+-(void)refresh;
 @end

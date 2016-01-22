@@ -11,5 +11,6 @@
 @interface UIImageView (Util)
 
 - (void)loadPortrait:(NSURL *)portraitURL;
-
+- (void)loadPortraitWithNSString:(NSString *)portraitURL;
+- (void)loadPortraitWithNSString:(NSString *)portraitURL defaultImgString:(NSString*)defaultImgString;
 @end

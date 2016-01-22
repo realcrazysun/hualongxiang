@@ -57,6 +57,14 @@ static NSString * const reuseHeaderIdentifier   = @"HeaderViewCell";
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.alwaysBounceVertical = YES;
     
+    //导航栏右边按钮
+    CGRect frame = self.view.frame;
+    UIImageView* rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"scan_nomal"]];
+    rightView.frame = CGRectMake(frame.size.width-40, 0, 40, 40);
+    UIGestureRecognizer* recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickRightNav)];
+    [rightView addGestureRecognizer:recognizer];
+    [self.navigationController.navigationBar addSubview:rightView];
+    
     [self.collectionView registerClass:[DiscoverViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerClass:[DiscoverViewCell class] forCellWithReuseIdentifier:blankReuseIdentifier];
     [self.collectionView registerClass:[DiscoverHeaderViewCell class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
@@ -71,7 +79,10 @@ static NSString * const reuseHeaderIdentifier   = @"HeaderViewCell";
     
     [self.collectionView.mj_header beginRefreshing];
 }
-
+//点击导航栏右边按钮
+-(void)clickRightNav{
+    
+}
 /**
  *  下拉刷新
  */

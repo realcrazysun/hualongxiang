@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LeftSideMenuTableViewController : UITableViewController
+@interface LeftSideMenuTableViewController : UIViewController
 
+@end
+
+@interface TopView : UIView
+-(void)initSubViews:(id)userData;
 @end

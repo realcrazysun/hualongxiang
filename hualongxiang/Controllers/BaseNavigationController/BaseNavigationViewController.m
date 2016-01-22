@@ -8,6 +8,7 @@
 
 #import "BaseNavigationViewController.h"
 #import "UIColor+Wonderful.h"
+#import "CommonDefines.h"
 //#import "UINavigationController+FDFullscreenPopGesture.h"
 //#import "ZFYTabbar.h"
 @interface BaseNavigationViewController ()<UINavigationControllerDelegate,UIGestureRecognizerDelegate>
@@ -19,8 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationBar.translucent = YES;
-    self.navigationBar.barTintColor = [UIColor deepSkyBlue];
+//    self.navigationBar.translucent = YES;
+    self.navigationBar.barTintColor = NavigationBarColor;
 //    self.navigationBar.tintColor = Nav_tintColor;
 //    self.fd_fullscreenPopGestureRecognizer.enabled=YES;
 //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];

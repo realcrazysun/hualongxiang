@@ -13,6 +13,10 @@
 #import "ChatRootViewController.h"
 #import "DynamicInfoViewController.h"
 #import "CommunityViewController.h"
+#import "HLXFriendCircleViewController.h"
+#import "Config.h"
+#import "UIImageView+Util.h"
+#import "UIView+Util.h"
 @interface MainTabBarController ()
 
 @end
@@ -25,17 +29,15 @@
     DynamicInfoViewController* controller1 = [self.storyboard instantiateViewControllerWithIdentifier:@"dynamicInfoViewController"];
     
     CommunityViewController* controller2 = [[CommunityViewController alloc] init];
-//    controller2.view.backgroundColor = [UIColor blueColor];
     
-    UIViewController* controller3 = [[UIViewController alloc] init];
-    controller3.view.backgroundColor = [UIColor yellowColor];
+    HLXFriendCircleViewController* controller3 = [[HLXFriendCircleViewController alloc] init];
     
     ChatRootViewController* controller4 = [[ChatRootViewController alloc] init];
     
     DiscoverViewController* discoverViewController = [[DiscoverViewController alloc] init];
     
     self.viewControllers = @[
-                             [self addNavigationItemForViewController:controller1 rightBarBtnImgName:@"tabbar-news" ],
+                             [self addNavigationItemForViewController:controller1 rightBarBtnImgName:@"tabbar-tweet" ],
                              [self addNavigationItemForViewController:controller2 rightBarBtnImgName:@"tabbar-tweet"],
                              [self addNavigationItemForViewController:controller3 rightBarBtnImgName:@"tabbar-discover"],
                              [self addNavigationItemForViewController:controller4 rightBarBtnImgName:@"tabbar-me"],
@@ -44,7 +46,7 @@
     
     //底部标题栏
     NSArray *titles = @[@"动态", @"社区", @"巷友圈", @"聊天", @"发现"];
-    NSArray *images = @[@"tabbar-news", @"tabbar-tweet", @"tabbar-news", @"tabbar-discover", @"tabbar-me"];
+    NSArray *images = @[@"tab-1", @"tabbar-tweet", @"tabbar-news", @"tabbar-discover", @"tabbar-me"];
     [self.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger idx, BOOL *stop) {
         [item setTitle:titles[idx]];
         [item setImage:[UIImage imageNamed:images[idx]]];
@@ -56,19 +58,26 @@
 - (UINavigationController *)addNavigationItemForViewController:(UIViewController *)viewController
                                             rightBarBtnImgName:(NSString*)imgName
 {
-    
     BaseNavigationViewController *navigationController = [[BaseNavigationViewController alloc] initWithRootViewController:viewController];
     
-    UIBarButtonItem* left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"tabbar-news"]
-                                                             style:UIBarButtonItemStylePlain
-                                                            target:self action:@selector(onClickLeftMenuButton)];
+    //导航栏左部图标
+    UIImageView* iconView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 5, 30, 30)];
+    NSString* iconUrl = [Config userIconUrl];
+    [iconView loadPortraitWithNSString:iconUrl defaultImgString:@"ic_default_icon"];
+    [iconView setCornerRadius:iconView.frame.size.width/2];
+    UIGestureRecognizer* recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickLeftMenuButton)];
+    [iconView addGestureRecognizer:recognizer];
     
+    UIBarButtonItem* left = [[UIBarButtonItem alloc] initWithCustomView:iconView];
+
     viewController.navigationItem.leftBarButtonItem   = left;
+    
     // 右边按钮不统一
     
-    viewController.navigationItem.rightBarButtonItem  = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:imgName]
-                                                                                        style:UIBarButtonItemStylePlain
-                                                                                       target:self action:@selector(onClickRightMenuButton)];
+//    viewController.navigationItem.rightBarButtonItem  = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:imgName]
+//                                                                                         style:UIBarButtonItemStylePlain
+//                                                                                        target:self action:@selector(onClickRightMenuButton)];
+//    
     
     return navigationController;
 }
@@ -80,13 +89,8 @@
     [self.sideMenuViewController presentLeftMenuViewController];
 }
 
-/**
- *  点击右边侧边栏按钮
- */
-- (void)onClickRightMenuButton{
-    
-    
-}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

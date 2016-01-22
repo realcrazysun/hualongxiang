@@ -16,10 +16,16 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-#warning 这个语法跟开源中国中的new一个TableView一样奇怪哦  不加会导致多出一块空的
     self.automaticallyAdjustsScrollViewInsets=NO;
+    //导航栏添加图片
+    UIImageView* navImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_home_top"]];
+    navImageView.center = CGPointMake(self.view.frame.size.width/2, 20);
+    [self.navigationController.navigationBar addSubview:navImageView];
+#warning 不加会导致多出一块空的
+    
     [self addClickTitleEvent];
     [self addController];
+    
     //设置底部滚动视图
     CGFloat contentX = 3 * [UIScreen mainScreen].bounds.size.width;
     self.contentView.contentSize = CGSizeMake(contentX, 0);
@@ -61,7 +67,7 @@
 /**
  *  指示条移动
  *
- *  @return <#return value description#>
+ *  @return
  */
 -(void)setIndicatorPositionWithAnimation:(CGPoint) point{
     //block代码块动画
@@ -81,13 +87,13 @@
 - (void)addController
 {
     NoticInfoTableViewController* controller1 = [[NoticInfoTableViewController alloc] init];
-//    controller1.view.backgroundColor = [UIColor redColor];
+    //    controller1.view.backgroundColor = [UIColor redColor];
     
     HotInfoTableViewController* controller2 = [[HotInfoTableViewController alloc] init];
-//    controller2.view.backgroundColor = [UIColor blueColor];
+    //    controller2.view.backgroundColor = [UIColor blueColor];
     
     ActivityInfoController* controller3 = [[ActivityInfoController alloc] init];
-//    controller3.view.backgroundColor = [UIColor yellowColor];
+    //    controller3.view.backgroundColor = [UIColor yellowColor];
     
     [self addChildViewController:controller1];
     [self addChildViewController:controller2];
@@ -123,4 +129,5 @@
 {
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }
+
 @end

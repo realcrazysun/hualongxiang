@@ -16,4 +16,13 @@
     [self sd_setImageWithURL:portraitURL placeholderImage:[UIImage imageNamed:@"default-portrait"] options:0];
 }
 
+- (void)loadPortraitWithNSString:(NSString *)portraitURL
+{
+    NSURL * url = [NSURL URLWithString:portraitURL];
+    [self sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"default-portrait"] options:0];
+}
+- (void)loadPortraitWithNSString:(NSString *)portraitURL defaultImgString:(NSString*)defaultImgString{
+    NSURL * url = [NSURL URLWithString:portraitURL];
+    [self sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:defaultImgString] options:0];
+}
 @end

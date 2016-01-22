@@ -97,7 +97,7 @@
                                        if (![model.ret isEqualToString:@"0"]) {
                                            NSLog(@"数据返回异常");
                                        }
-                                       NSLog(@"数据加载成功---:%@",responseObject);
+//                                       NSLog(@"数据加载成功---:%@",responseObject);
                                        //处理获得的数据
                                      
                                        if (refresh) {
