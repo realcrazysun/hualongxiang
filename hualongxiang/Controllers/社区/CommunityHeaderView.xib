@@ -13,6 +13,7 @@
             <subviews>
                 <searchBar contentMode="redraw" placeholder="点我点我" translatesAutoresizingMaskIntoConstraints="NO" id="1Cu-OE-IWJ">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                    <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JVj-VX-sU2">

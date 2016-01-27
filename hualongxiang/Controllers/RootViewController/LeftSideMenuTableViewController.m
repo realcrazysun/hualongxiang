@@ -17,6 +17,9 @@
 #import "ResponseRootObject.h"
 #import "Config.h"
 #import "UIImageView+Util.h"
+#import "SettingPage.h"
+#import <RESideMenu.h>
+#import "LoginViewController.h"
 #define TopViewWidth (ScreenWidth*2/3 - 10)
 @interface LeftSideMenuTableViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet TopView *topView;
@@ -32,22 +35,50 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //    self.view.backgroundColor = [UIColor maroonColor];
+    //注册用户信息修改变化
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:@"userRefresh" object:nil];
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    //背景色设置
     self.view.backgroundColor = [UIColor darkSlateGray];
     self.topView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.bottomView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     [self.setBtn setCornerRadius:3];
     [self.setBtn setBorderWidth:1 andColor:[UIColor grayColor]];
+    [self.setBtn addTarget:self action:@selector(clickSetBtn) forControlEvents:UIControlEventTouchUpInside];
+    
     [self initTopView];
     UIGestureRecognizer* recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doLogin)];
     [self.topView addGestureRecognizer:recognizer];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(initTopView) name:@"topViewRefresh" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(initTopView) name:@"topViewRefresh" object:nil];
 }
+
+-(void)clickSetBtn{
+    SettingPage* settingPage = [[SettingPage alloc] init];
+    [self.sideMenuViewController hideMenuViewController];
+
+    UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:settingPage];
+    [self presentViewController:nav  animated:NO completion:nil];
+//    [self setContentViewController:settingPage];
+}
+
+
+- (void)reload
+{
+#pragma mark --  为何要用gcd
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self initTopView];
+        [self.tableView reloadData];
+    });
+}
+
 
 - (void)dealloc
 {
@@ -60,48 +91,27 @@
     User *myProfile = [Config myProfile];
     if (myProfile) {
         self.topViewHeight.constant = 150;
+    }else {
+         self.topViewHeight.constant = 100;
     }
     
     [self.topView initSubViews:myProfile];
 }
 
 -(void)doLogin{
-    NSMutableDictionary* parameters = [[NSMutableDictionary alloc] init];
-    [parameters setObject:@"8a7c2136f86a95e256b67e73de4c1544" forKey:@"access_token"];
+    LoginViewController* vc = [[LoginViewController alloc] init];
+    [self.sideMenuViewController hideMenuViewController];
     
-    NSMutableDictionary* data = [[NSMutableDictionary alloc] init];
-    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    [params setObject:@"qq" forKey:@"weiboType"];
-    [params setObject:@"3D30D2BF01AD011252695BCE71B89AFC" forKey:@"openId"];
-    [data setObject:params forKey:@"params"];
-    [parameters setObject:[data mj_JSONString] forKey:@"data"];
-    
-    [parameters setObject:@"E542B165-08ED-4529-AF7C-B15F8DE0B199" forKey:@"device"];
-    
-    [parameters setObject:@"iPhone 5" forKey:@"platform"];
-    [parameters setObject:@"1" forKey:@"network"];
-    [parameters setObject:@"568.000000" forKey:@"screen_height"];
-    [parameters setObject:@"320.000000" forKey:@"screen_width"];
-    [parameters setObject:@"1" forKey:@"system"];
-    [parameters setObject:@"9.2" forKey:@"system_version"];
-    [parameters setObject:@"4.4.0" forKey:@"version"];
-    
-    [AFHTTPSessionManagerTool sendHttpPost:HLXAPI_THIRD_LOGIN prefix:HLXAPI_PREFIX parameters:parameters success:^(NSURLSessionDataTask *task, id responseOBJ) {
-        NSLog(@"%@",responseOBJ);
-        ResponseRootObject* obj = [ResponseRootObject mj_objectWithKeyValues:responseOBJ];
-        if ([obj.ret isEqual:@"0"]) {
-            User* user = [User mj_objectWithKeyValues:obj.data];
-            [Config saveProfile:user];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"topViewRefresh" object:nil];
-        }
-    } failure:^(NSURLSessionDataTask * task, NSError * error) {
-        NSLog(@"%@",error.domain);
-    }];
+    UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav  animated:NO completion:nil];
+//    [self.navigationController presentViewController:nav animated:YES completion:nil];
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+ 
 }
 
 #pragma mark - Table view data source
@@ -142,12 +152,13 @@
 
 - (void)setContentViewController:(UIViewController *)viewController
 {
-    //    viewController.hidesBottomBarWhenPushed = YES;
+//    viewController.hidesBottomBarWhenPushed = YES;
 //    UINavigationController *nav = (UINavigationController *)((UITabBarController *)self.sideMenuViewController.contentViewController).selectedViewController;
-//    //UIViewController *vc = nav.viewControllers[0];
-//    //vc.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:nil action:nil];
-//    [nav pushViewController:viewController animated:NO];
-//    
+//    UIViewController *vc = nav.viewControllers[0];
+//    vc.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:nil action:nil];
+//    nav.navigationItem.titleView = nil;
+//    [nav pushViewController:viewController animated:YES];
+    
 //    [self.sideMenuViewController hideMenuViewController];
 }
 
@@ -232,8 +243,12 @@
         [view2 addSubview:goldLabel];
         
         UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(TopViewWidth/2+10, 10, 60, 30);
+        button.frame = CGRectMake(TopViewWidth/2+10, 10, 80, 30);
         [button setTitle:@"摇一摇" forState:UIControlStateNormal];
+        [button setBackgroundColor:[UIColor aquamarine]];
+        [button setCornerRadius:4];
+        button.titleLabel.font = [UIFont systemFontOfSize:15];
+        [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         [view2 addSubview:button];
         
         _nameLabel.text = userData.username;

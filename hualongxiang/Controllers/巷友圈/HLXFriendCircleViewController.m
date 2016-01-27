@@ -46,6 +46,13 @@
  *  设置导航栏  三个按钮
  */
 -(void)setNav{
+    
+    self.navigationItem.rightBarButtonItem  = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"ic_pai_photo"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                                               style:UIBarButtonItemStylePlain
+                                                                              target:self action:@selector(onClickRightMenuButton)];
+    
+
+    
     CGFloat width = 200;
     CGRect btnViewRect  = CGRectMake(ScreenWidth/2 - width/2, 0, 200, self.navigationController.navigationBar.frame.size.height-2);
     _btnView = [[UIView alloc] initWithFrame:btnViewRect];
@@ -77,6 +84,16 @@
     [lineView addSubview:_indicatorView];
     [self.navigationController.navigationBar addSubview:lineView];
 }
+
+/**
+ 点击导航栏右边按钮
+ 
+ - returns: void
+ */
+-(void)onClickRightMenuButton{
+    
+}
+
 /**
  *  初始化内容滚动栏
  */

@@ -10,19 +10,28 @@
 #import "NoticInfoTableViewController.h"
 #import "HotInfoTableViewController.h"
 #import "ActivityInfoController.h"
-
+#import "SearchViewController.h"
 #warning  1、加载数据分页  2、各tableview点击事件
 @implementation DynamicInfoViewController
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+#warning 不加会导致多出一块空的
     self.automaticallyAdjustsScrollViewInsets=NO;
     //导航栏添加图片
     UIImageView* navImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_home_top"]];
+
+    CGRect frame = CGRectMake(navImageView.frame.origin.x,navImageView.frame.origin.y,navImageView.frame.size.width*3/4,navImageView.frame.size.height*3/4);
+    navImageView.frame = frame;
     navImageView.center = CGPointMake(self.view.frame.size.width/2, 20);
     [self.navigationController.navigationBar addSubview:navImageView];
-#warning 不加会导致多出一块空的
-    
+#pragma mark -- imageWithRenderingMode 去掉颜色混合  实用tip
+    self.navigationItem.rightBarButtonItem  = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_search"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                                                                                                style:UIBarButtonItemStylePlain
+                                                                                                                                                 target:self action:@selector(onClickRightMenuButton)];
+                                                             
+
+                                                         
     [self addClickTitleEvent];
     [self addController];
     
@@ -41,6 +50,16 @@
 }
 
 /**
+ *  导航栏rightBarButtonItem点击事件
+ */
+-(void)onClickRightMenuButton{
+    SearchViewController *vc = [SearchViewController new];
+    UINavigationController *searchNav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self.navigationController presentViewController:searchNav animated:NO completion:nil];
+}
+
+
+/**
  *  增加标签点击事件
  */
 -(void)addClickTitleEvent{
@@ -54,8 +73,6 @@
 }
 
 -(void)click:(UITapGestureRecognizer*)recognizer{
-    NSLog(@"%d",recognizer.view.tag);
-    
     [self setIndicatorPositionWithAnimation:CGPointMake(recognizer.view.center.x, self.labelSelectView.indicatorView.center.y)];
     
     CGFloat offsetX = recognizer.view.tag * self.contentView.frame.size.width;

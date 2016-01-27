@@ -38,6 +38,7 @@ NSString * const kThird_app_token = @"third_app_token";
 NSString * const kNickname = @"nickname";
 NSString * const kBbstoken = @"bbstoken";
 
+NSString * const kSearchHistory = @"searchHistory";
 @implementation Config
 
 #pragma mark - user profile
@@ -51,7 +52,8 @@ NSString * const kBbstoken = @"bbstoken";
     [userDefaults setInteger:user.rvrc          forKey:kRvrc];
     [userDefaults setInteger:user.money         forKey:kMoney];
     [userDefaults setObject:user.sign           forKey:kSign];
-    [userDefaults setObject:user.faceurl           forKey:kFaceurl];
+    [userDefaults setObject:user.faceurl        forKey:kFaceurl];
+    [userDefaults setInteger:user.uid           forKey:kUid];
     [userDefaults synchronize];
 }
 
@@ -60,13 +62,16 @@ NSString * const kBbstoken = @"bbstoken";
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    [userDefaults setObject:@"" forKey:kUsername];
-    [userDefaults setObject:@"" forKey:kLogin_token];
-    [userDefaults setObject:@(0) forKey:kRvrc];
-    [userDefaults setObject:@(0) forKey:kMoney];
-    [userDefaults setObject:@"" forKey:kSign];
-    [userDefaults setObject:@"" forKey:kFaceurl];
+    [userDefaults setObject:@""     forKey:kUsername];
+    [userDefaults setObject:@""     forKey:kLogin_token];
+    [userDefaults setObject:@(0)    forKey:kRvrc];
+    [userDefaults setObject:@(0)    forKey:kMoney];
+    [userDefaults setObject:@""     forKey:kSign];
+    [userDefaults setObject:@""     forKey:kFaceurl];
+    [userDefaults setObject:@(0)    forKey:kUid];
     [userDefaults synchronize];
+    
+    [NSUserDefaults resetStandardUserDefaults];
 }
 
 + (User *)myProfile
@@ -82,6 +87,7 @@ NSString * const kBbstoken = @"bbstoken";
     user.money = [[userDefaults objectForKey:kMoney] intValue];
     user.sign = [userDefaults objectForKey:kSign] ;
     user.faceurl = [userDefaults objectForKey:kFaceurl] ;
+    user.uid = [userDefaults integerForKey:kUid] ;
     return user;
 }
 
@@ -91,11 +97,50 @@ NSString * const kBbstoken = @"bbstoken";
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults removeObjectForKey:@"sessionCookies"];
+    [defaults synchronize];
 }
 
 
 +(NSString*)userIconUrl{
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     return [userDefaults objectForKey:kFaceurl] ;
+}
+
++(void)clearSearchHistory{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:kSearchHistory];
+    [defaults synchronize];
+}
+
+//添加一条搜索记录
++(void)addSearchHistory:(NSString*)searchInfo{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    NSMutableArray* array = [NSMutableArray new];
+    [array addObjectsFromArray: [defaults objectForKey:kSearchHistory]];
+    if (!array) {
+        array = [NSMutableArray new];
+    }
+    for (NSString* info in array) {
+        if ([info isEqualToString:searchInfo]) {
+            return;
+        }
+    }
+    [array addObject:searchInfo];
+    //保留10条记录
+    if (array.count > 10) {
+        [array removeObjectsInRange:NSMakeRange(0, array.count - 10)];
+    }
+    [defaults setObject:array forKey:kSearchHistory];
+    [defaults synchronize];
+}
++(NSMutableArray*)loadSearchHistory{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults objectForKey:kSearchHistory];
+}
++ (int64_t)getOwnID
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults integerForKey:kUid];
 }
 @end

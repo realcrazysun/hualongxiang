@@ -57,5 +57,6 @@ typedef NS_ENUM(NSUInteger, hudType) {
 + (NSString *)HTMLWithData:(NSDictionary *)data usingTemplate:(NSString *)templateName;
 
 
++(UIViewController *)getPresentedViewController;
 
 @end

@@ -68,18 +68,23 @@
     UIGestureRecognizer* recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickLeftMenuButton)];
     [iconView addGestureRecognizer:recognizer];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadIMG) name:@"userRefresh" object:nil];
     UIBarButtonItem* left = [[UIBarButtonItem alloc] initWithCustomView:iconView];
-
+    
     viewController.navigationItem.leftBarButtonItem   = left;
     
-    // 右边按钮不统一
-    
-//    viewController.navigationItem.rightBarButtonItem  = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:imgName]
-//                                                                                         style:UIBarButtonItemStylePlain
-//                                                                                        target:self action:@selector(onClickRightMenuButton)];
-//    
-    
     return navigationController;
+}
+
+//注销、登陆 更新图标
+-(void)reloadIMG{
+    for (UINavigationController* nav in self.viewControllers){
+        UIViewController* viewController =nav.viewControllers[0];
+        UIBarButtonItem* item = viewController.navigationItem.leftBarButtonItem;
+        UIImageView* view =  item.customView;
+        NSString* iconUrl = [Config userIconUrl];
+        [view loadPortraitWithNSString:iconUrl defaultImgString:@"ic_default_icon"];
+    }
 }
 
 /**
@@ -89,12 +94,12 @@
     [self.sideMenuViewController presentLeftMenuViewController];
 }
 
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 @end

@@ -28,7 +28,6 @@
 }
 
 -(void)initSubViews{
-    NSLog(@"initWithCoder--");
     self.scrollView.pagingEnabled = YES;
     self.scrollView.alwaysBounceVertical = NO;
     self.scrollView.bounces = NO;
@@ -94,7 +93,6 @@
 
 - (IBAction)btnClicked:(UIButton *)btn {
     if (btn == _leftBtn) {
-        NSLog(@"left");
         _currentIndex  = 0;
         [self load:CommunityTypeHot];
         _rightBtn.alpha = 0.5;

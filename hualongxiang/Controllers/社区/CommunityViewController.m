@@ -22,6 +22,8 @@
 #import "CommuityModel.h"
 #import "MJRefresh.h"
 #import "NSDateFormatter+Singleton.h"
+#import "AllBlocksViewController.h"
+#import "EditViewController.h"
 static NSString* reuseIdentifier = @"activityInfo";
 @interface CommunityViewController ()<UIScrollViewDelegate>
 @property(nonatomic,strong)CommunityHeaderView* head;
@@ -45,14 +47,30 @@ static NSString* reuseIdentifier = @"activityInfo";
     // Do any additional setup after loading the view.
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.tableView.rowHeight = 140;
+    
+    //顶部导航栏 -- 标题栏
+    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+    title.font = [UIFont systemFontOfSize:19];
+    title.textColor = [UIColor whiteColor];
+    title.backgroundColor = [UIColor clearColor];
+    title.textAlignment = NSTextAlignmentCenter;
+    title.text = @"社 区";
+    self.navigationItem.titleView = title;
+    
+    //顶部导航栏 -- rightBarButtonItem
+    self.navigationItem.rightBarButtonItem  = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_forum_publish"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                                               style:UIBarButtonItemStylePlain
+                                                                              target:self action:@selector(onClickRightMenuButton)];
+    
+    
     UINib* nib = [UINib nibWithNibName:NSStringFromClass([ActivityInfoTableViewCell class]) bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:reuseIdentifier];
+    
     
 #warning 要用tableHeaderView 而不能用viewForHeaderInSection  否则无法响应点击事件
 #warning CommunityHeaderView 直接设置为tableHeaderView会出现诡异情况 。。nnd
     CGRect frame = CGRectMake(0, 0, self.tableView.frame.size.width, 300);
     UIView* view = [[UIView alloc] initWithFrame:frame];
-    
     _head  = [[[NSBundle mainBundle]loadNibNamed:@"CommunityHeaderView" owner:nil options:nil] firstObject];
     _head.frame = frame;
     [view addSubview:_head];
@@ -60,6 +78,16 @@ static NSString* reuseIdentifier = @"activityInfo";
     self.tableView.tableHeaderView = view ;
     
 }
+
+/**
+ *  导航栏rightBarButtonItem点击事件
+ */
+-(void)onClickRightMenuButton{
+    EditViewController *vc = [[EditViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
 
 -(void)refresh{
     [super refresh];

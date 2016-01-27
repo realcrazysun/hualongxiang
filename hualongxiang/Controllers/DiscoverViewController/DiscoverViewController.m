@@ -18,6 +18,8 @@
 #import "DiscoverItemModel.h"
 #import "MJRefresh.h"
 #import "TOWebViewController.h"
+#import "ScanViewController.h"
+
 @interface DiscoverViewController ()
 @property (nonatomic, strong) NSMutableArray *sections;
 @end
@@ -58,12 +60,16 @@ static NSString * const reuseHeaderIdentifier   = @"HeaderViewCell";
     self.collectionView.alwaysBounceVertical = YES;
     
     //导航栏右边按钮
-    CGRect frame = self.view.frame;
-    UIImageView* rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"scan_nomal"]];
-    rightView.frame = CGRectMake(frame.size.width-40, 0, 40, 40);
-    UIGestureRecognizer* recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickRightNav)];
-    [rightView addGestureRecognizer:recognizer];
-    [self.navigationController.navigationBar addSubview:rightView];
+    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+    title.font = [UIFont systemFontOfSize:19];
+    title.textColor = [UIColor whiteColor];
+    title.backgroundColor = [UIColor clearColor];
+    title.textAlignment = NSTextAlignmentCenter;
+    title.text = @"发 现";
+    self.navigationItem.titleView = title;
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(clickRightNav)];
+
     
     [self.collectionView registerClass:[DiscoverViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerClass:[DiscoverViewCell class] forCellWithReuseIdentifier:blankReuseIdentifier];
@@ -81,7 +87,9 @@ static NSString * const reuseHeaderIdentifier   = @"HeaderViewCell";
 }
 //点击导航栏右边按钮
 -(void)clickRightNav{
-    
+    ScanViewController *scanVC = [ScanViewController new];
+    UINavigationController *scanNav = [[UINavigationController alloc] initWithRootViewController:scanVC];
+    [self.navigationController presentViewController:scanNav animated:YES completion:nil];
 }
 /**
  *  下拉刷新
@@ -91,7 +99,6 @@ static NSString * const reuseHeaderIdentifier   = @"HeaderViewCell";
         //刷新数据
         ResponseRootObject* model = [ResponseRootObject mj_objectWithKeyValues:responseJsonObject];
         if ([model.ret isEqualToString:@"0"]) {
-//            NSLog(@"数据返回成功");
             [_sections removeAllObjects];
             NSArray* arr = model.data;
             for (int i = 0; i < arr.count; i++) {
@@ -104,7 +111,6 @@ static NSString * const reuseHeaderIdentifier   = @"HeaderViewCell";
         if([self.collectionView.mj_header isRefreshing]){
             [self.collectionView.mj_header endRefreshing];
         }
-//        NSLog(@"%@",responseJsonObject);
     } failure:^(NSURLSessionDataTask * task, NSError * error) {
         NSLog(@"%@",@"failed");
     }];
@@ -176,7 +182,7 @@ static NSString * const reuseHeaderIdentifier   = @"HeaderViewCell";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     DiscoverViewCell* cell = (DiscoverViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
     if ([cell.reuseIdentifier isEqualToString:reuseIdentifier]) {
-        NSLog(@"点击了单个collectionViewCell 而不是 空白 cell");
+//        NSLog(@"点击了单个collectionViewCell 而不是 空白 cell");
         DiscoverSectionModel* sectionModel = _sections[indexPath.section];
         DiscoverItemModel*  itemModel      = sectionModel.val[indexPath.row];
         TOWebViewController* webController = [[TOWebViewController alloc] initWithURLString:itemModel.url];

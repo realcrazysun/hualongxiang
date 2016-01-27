@@ -17,4 +17,8 @@
 + (void)clearProfile;
 + (User *)myProfile;
 + (NSString *)userIconUrl;
++(NSMutableArray*)loadSearchHistory;//加载搜索历史
++(void)addSearchHistory:(NSString*)searchInfo;
++(void)clearSearchHistory;
++(int64_t)getOwnID;
 @end

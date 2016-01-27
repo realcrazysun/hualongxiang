@@ -14,7 +14,6 @@
     
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        NSLog(@"init here");
         self.indicatorView.layer.cornerRadius = 2;
         self.indicatorView.layer.masksToBounds = YES;
 

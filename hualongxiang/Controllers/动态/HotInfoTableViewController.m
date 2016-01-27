@@ -39,8 +39,6 @@ static NSString* reuseIdentifier = @"hotInfoTableViewCell";
     [self.tableView registerClass:[HotInfoTableViewCell class] forCellReuseIdentifier:reuseIdentifier];
     
     self.tableView.rowHeight = HotInfoCellHeight;
-    
-    NSLog(@"---%f",self.tableView.rowHeight );
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

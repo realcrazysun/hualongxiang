@@ -40,4 +40,10 @@
          parameters:(id)parameters
             success:(void (^)(NSURLSessionDataTask * , id ))success
             failure:(void (^)(NSURLSessionDataTask * , NSError *))failure;
+/**
+ *  默认用户parameters
+ *
+ *  @return <#return value description#>
+ */
++(NSMutableDictionary*)defaultParameters;
 @end

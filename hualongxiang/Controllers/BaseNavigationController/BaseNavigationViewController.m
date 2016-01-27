@@ -9,6 +9,10 @@
 #import "BaseNavigationViewController.h"
 #import "UIColor+Wonderful.h"
 #import "CommonDefines.h"
+#import "UIView+Util.h"
+#import "UIImageView+Util.h"
+#import "Config.h"
+#import <RESideMenu/RESideMenu.h>
 //#import "UINavigationController+FDFullscreenPopGesture.h"
 //#import "ZFYTabbar.h"
 @interface BaseNavigationViewController ()<UINavigationControllerDelegate,UIGestureRecognizerDelegate>
@@ -22,6 +26,8 @@
     // Do any additional setup after loading the view.
 //    self.navigationBar.translucent = YES;
     self.navigationBar.barTintColor = NavigationBarColor;
+    
+
 //    self.navigationBar.tintColor = Nav_tintColor;
 //    self.fd_fullscreenPopGestureRecognizer.enabled=YES;
 //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
@@ -41,11 +47,14 @@
 //    [[UINavigationBar appearance] setTitleTextAttributes:titleAttributes];
 //
 }
+
+
+
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if (self.viewControllers.count>0) {
         ///第二层viewcontroller 隐藏tabbar
-        viewController.hidesBottomBarWhenPushed=NO;
+        viewController.hidesBottomBarWhenPushed=YES;
     }
     [super pushViewController:viewController animated:YES];
 }
