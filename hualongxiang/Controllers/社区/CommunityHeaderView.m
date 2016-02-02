@@ -57,6 +57,8 @@
     for (UIView* view in  _scrollView.subviews) {
         [view removeFromSuperview];
     }
+    [self.pageControl removeFromSuperview];
+    
     NSArray* arr;
     switch (type) {
         case CommunityTypeHot:

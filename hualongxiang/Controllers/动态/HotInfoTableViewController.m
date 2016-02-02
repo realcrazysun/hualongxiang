@@ -11,17 +11,29 @@
 #import "HLXApi.h"
 #import "CommonDefines.h"
 #import "HotInfoModel.h"
-
+#import "DetailInfoViewController.h"
+#import "AFHTTPSessionManagerTool.h"
 static NSString* reuseIdentifier = @"hotInfoTableViewCell";
 
 @implementation HotInfoTableViewController
 -(instancetype)init{
     self=[super init];
     if (self) {
-                self.generateURL = ^(NSUInteger idx){
-                    return [NSString stringWithFormat:@"%@", HLXAPI_HOTINFO];
-                };
-                self.objClass = [HotInfoModel class];
+        self.generateURL = ^(){
+            return [NSString stringWithFormat:@"%@", HLXAPI_HOTINFO];
+        };
+        self.objClass = [HotInfoModel class];
+
+        self.generateParams = ^(NSUInteger page){
+            NSMutableDictionary* parameters = [AFHTTPSessionManagerTool defaultParameters];
+            NSMutableDictionary* data = [[NSMutableDictionary alloc] init];
+            NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+            [params setObject:[NSNumber numberWithInteger:page] forKey:@"page"];
+            [data setObject:params forKey:@"params"];
+            [parameters setObject:[data mj_JSONString] forKey:@"data"];
+            return parameters;
+        };
+        
     }
     return self;
 }
@@ -48,6 +60,25 @@ static NSString* reuseIdentifier = @"hotInfoTableViewCell";
     HotInfoModel* model = self.objects[indexPath.row];
     HotInfoHeadModel* header = [HotInfoHeadModel mj_objectWithKeyValues:model.items.header];
     [cell setData:model.pushtime header:header news: model.items.body];
+    typeof(self) __weak weakself = self;
+    cell.tapImgBlock = ^{
+        NSString* loadUrl = header.url;
+        if ([loadUrl isEqualToString:@""]) {
+            loadUrl = [NSString stringWithFormat:HLXAPI_VIEW_THREAD,header.dataid];
+        }
+        DetailInfoViewController * vc  = [[DetailInfoViewController alloc] init:YES loadUrl:loadUrl liked:NO replyNums:0];
+        [weakself.navigationController pushViewController:vc animated:YES];
+    };
+    
+    cell.tapViewBlock = ^(NSUInteger idx){
+        HotInfoBodyModel* bodyModel = model.items.body[idx];
+        NSString* loadUrl = bodyModel.url;
+        if ([loadUrl isEqualToString:@""]) {
+            loadUrl = [NSString stringWithFormat:HLXAPI_VIEW_THREAD,bodyModel.dataid];
+        }
+        DetailInfoViewController * vc  = [[DetailInfoViewController alloc] init:YES loadUrl:loadUrl liked:NO replyNums:0];
+        [weakself.navigationController pushViewController:vc animated:YES];
+    };
     return cell;
 }
 

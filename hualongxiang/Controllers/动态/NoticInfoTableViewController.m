@@ -13,28 +13,66 @@
 #import "MJExtension.h"
 #import "DynamicInfoCellThreePic.h"
 #import "DynamicInfoCellAD.h"
+#import "DetailInfoViewController.h"
+#import "AFHTTPSessionManagerTool.h"
+
+static NSString* reuseIdentifier = @"cellOne";
+static NSString* reuseIdentifier2 = @"cellThree";
+static NSString* reuseIdentifier3 = @"cellAD";
+
+@interface NoticInfoTableViewController()
+@end
 @implementation NoticInfoTableViewController
 -(instancetype)init{
     self=[super init];
     if (self) {
-        self.generateURL = ^(NSUInteger idx){
+        self.generateURL = ^(){
             return [NSString stringWithFormat:@"%@", HLXAPI_NOTICE];
         };
+        
         self.objClass = [NoticeListInfoObject class];
+        typeof(self) __weak weakself = self;
+        self.generateParams = ^(NSUInteger page){
+            NSMutableDictionary* parameters = [AFHTTPSessionManagerTool defaultParameters];
+            NSMutableDictionary* data = [[NSMutableDictionary alloc] init];
+            NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+            [params setObject:[NSNumber numberWithInteger:0] forKey:@"last_post_id"];
+            [params setObject:[NSNumber numberWithInteger:0] forKey:@"last_side_id"];
+            [params setObject:[NSNumber numberWithInteger:page] forKey:@"page"];
+            [params setObject:[NSNumber numberWithLongLong:weakself.lastRefreshtime] forKey:@"last_refresh_time"];
+            if (weakself.objects.count>0 && page > 1) {
+                NoticeListInfoObject* object = weakself.objects[weakself.objects.count - 1];
+                [params setObject:[NSNumber numberWithLongLong:[object.sort longLongValue]] forKey:@"last_time"];
+            }else{
+                [params setObject:[NSNumber numberWithInt:0] forKey:@"last_time"];
+                
+            }
+            
+            
+            
+            [data setObject:params forKey:@"params"];
+            [parameters setObject:[data mj_JSONString] forKey:@"data"];
+            return parameters;
+        };
+        
     }
     return self;
 }
 
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    [self.tableView registerClass:[DynamicInfoCellOnePic class] forCellReuseIdentifier:reuseIdentifier];
+    [self.tableView registerClass:[DynamicInfoCellThreePic class] forCellReuseIdentifier:reuseIdentifier2];
+    [self.tableView registerClass:[DynamicInfoCellAD class] forCellReuseIdentifier:reuseIdentifier3];
+}
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString* reuseIdentifier = @"cellOne";
-    static NSString* reuseIdentifier2 = @"cellThree";
-    static NSString* reuseIdentifier3 = @"cellAD";
+    
     NoticeListInfoObject* object = self.objects[indexPath.row];
     NoticInfoTableViewCellType type = [self typeForRowAtIndexPath:indexPath];
     switch (type) {
         case NoticInfoTableViewCellOnePic:
         {
-            DynamicInfoCellOnePic* cell = [[DynamicInfoCellOnePic alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+            DynamicInfoCellOnePic* cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
             cell.titleLabel.text        = object.title;
             cell.nameLabel.text         = object.author;
             cell.readcountLabel.text    = object.views_num;
@@ -43,7 +81,7 @@
         }
         case NoticInfoTableViewCellThreePic:
         {
-            DynamicInfoCellThreePic* cell = [[DynamicInfoCellThreePic alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier2];
+            DynamicInfoCellThreePic* cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier2];
             cell.titleLabel.text        = object.title;
             cell.nameLabel.text         = object.author;
             cell.readcountLabel.text    = object.views_num;
@@ -57,8 +95,8 @@
         }
         case NoticInfoTableViewCellAD:
         {
-            DynamicInfoCellAD* cell = [[DynamicInfoCellAD alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier3];
-            cell.titleLabel.text        = object.title;
+            DynamicInfoCellAD* cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier3];
+            cell.titleLabel.text    = object.title;
             if (object.attaches&&object.attaches.count>0) {
                 [cell setImgUrl:[object.attaches[0] objectForKey:@"attachurl"]];
                 
@@ -68,7 +106,6 @@
         default:
             break;
     }
-    
     
     DynamicInfoCellOnePic* cell = [[DynamicInfoCellOnePic alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     cell.titleLabel.text = @"";
@@ -117,6 +154,22 @@
     }
     NSLog(@"%@---%@",object.type,object.title);
     return NoticInfoTableViewCellAD;
+    
+}
+#pragma mark -- tableView delegate
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NoticeListInfoObject* object = self.objects[indexPath.row];
+    NSString* loadUrl = object.url;
+    BOOL bottomBar = NO;
+    if ([loadUrl isEqualToString:@""]) {
+        loadUrl = [NSString stringWithFormat:HLXAPI_VIEW_THREAD,object.target_id];
+        bottomBar = YES;
+    }
+    DetailInfoViewController* controller = [[DetailInfoViewController alloc] init:bottomBar
+                                                                          loadUrl:loadUrl
+                                                                            liked:YES
+                                                                        replyNums:[object.replies_num intValue]];
+    [self.navigationController pushViewController:controller animated:YES];
     
 }
 @end

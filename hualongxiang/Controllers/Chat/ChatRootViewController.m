@@ -10,6 +10,9 @@
 #import "CommonDefines.h"
 #import "UIView+Util.h"
 #import "ContactsViewController.h"
+#import "NearByViewController.h"
+#import "Config.h"
+#import "LoginViewController.h"
 @implementation ChatRootViewController
 
 - (void)viewDidLoad {
@@ -33,9 +36,10 @@
 
 }
 - (void)onClickRightMenuButton{
+    CheckUser
     ContactsViewController * contactsVC = [[ContactsViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:contactsVC];
-    [self.navigationController presentViewController:nav animated:YES completion:nil];
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:contactsVC];
+    [self.navigationController pushViewController:contactsVC  animated:YES ];
 
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -90,5 +94,11 @@
     return cell;
 }
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == 0) {
+        CheckUser
+        NearByViewController* vc = [[NearByViewController alloc] init];
+        [self presentViewController:vc animated:NO completion:nil];
+    }
+}
 @end

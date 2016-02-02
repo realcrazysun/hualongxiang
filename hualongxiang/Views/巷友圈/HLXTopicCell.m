@@ -32,13 +32,14 @@
     _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(5 , 5, 60 , 60)];
     [self.contentView addSubview:_imageView];
     //
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 5, ScreenWidth-100, 30)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 10, ScreenWidth-100, 30)];
+    _titleLabel.numberOfLines = 1;
     [self.contentView addSubview:_titleLabel];
     //
-    _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 35, ScreenWidth-100, 40)];
+    _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 35, ScreenWidth-100, 30)];
     _subtitleLabel.font = [UIFont systemFontOfSize:13];
     _subtitleLabel.textColor = [UIColor lightGrayColor];
-    _subtitleLabel.numberOfLines = 2;
+    _subtitleLabel.numberOfLines = 1;
     [self.contentView addSubview:_subtitleLabel];
 }
 

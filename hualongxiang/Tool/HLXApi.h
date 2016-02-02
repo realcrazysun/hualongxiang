@@ -24,5 +24,9 @@
 #define HLXAPI_GET_SUBFORUMS            @"/v1_4/forum/get-subforums"
 #define HLXAPI_USER_FOLLOWERS           @"/v1_4/user/followers"
 #define HLXAPI_FORUM_POSTNEWTHREAD      @"/forum/post-new-thread"                   //社区 发送新内容
+#define HLXAPI_SIDE_NEARUSERLIST        @"/v1_4/side/near-user-list"                //附近的人列表
+#define HLXAPI_SIDE_HOT_USER_LIST       @"/v1_4/side/hot-user-list"                 //活跃的人列表
+#define HLXAPI_SIDE_HOT_LIST            @"/v1_4/side/hot-list"                      //热门推荐列表
+#define HLXAPI_VIEW_THREAD              @"http://hualongxiang.qianfanapi.com/v1_4/wap/view-thread?tid=%@&isSeeMaster=0&replyOrder=0&viewpid=0"
 
 #endif /* HLXApi_h */

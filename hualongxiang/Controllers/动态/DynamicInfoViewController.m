@@ -24,7 +24,8 @@
     CGRect frame = CGRectMake(navImageView.frame.origin.x,navImageView.frame.origin.y,navImageView.frame.size.width*3/4,navImageView.frame.size.height*3/4);
     navImageView.frame = frame;
     navImageView.center = CGPointMake(self.view.frame.size.width/2, 20);
-    [self.navigationController.navigationBar addSubview:navImageView];
+    self.navigationItem.titleView = navImageView;
+//    [self.navigationController.navigationBar addSubview:navImageView];
 #pragma mark -- imageWithRenderingMode 去掉颜色混合  实用tip
     self.navigationItem.rightBarButtonItem  = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_search"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                                                                                                 style:UIBarButtonItemStylePlain
@@ -48,14 +49,22 @@
     self.contentView.bounces = NO ;
     self.contentView.delegate = self;
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+//     self.navigationItem.titleView.hidden = NO;
+}
+-(void)viewDidDisappear:(BOOL)animated{
+//    self.navigationItem.titleView.hidden = YES;
+    [super viewDidDisappear:animated];
+    
+}
 /**
  *  导航栏rightBarButtonItem点击事件
  */
 -(void)onClickRightMenuButton{
     SearchViewController *vc = [SearchViewController new];
-    UINavigationController *searchNav = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self.navigationController presentViewController:searchNav animated:NO completion:nil];
+//    UINavigationController *searchNav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

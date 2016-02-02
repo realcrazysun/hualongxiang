@@ -42,7 +42,7 @@
 @property (copy, nonatomic,readonly) NSString * push_at;
 @property (copy, nonatomic,readonly) NSString * push_num;
 @property (copy, nonatomic,readonly) NSString * title_type;
-@property (copy, nonatomic,readonly) NSString * description;
+@property (copy, nonatomic,readonly) NSString * objdescription;
 @property (copy, nonatomic,readonly) NSString * vipid;
 @property (copy, nonatomic,readonly) NSString * sort;
 @property (copy, nonatomic,readonly) NSString * threadtype;

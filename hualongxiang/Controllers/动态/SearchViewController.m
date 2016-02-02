@@ -73,6 +73,14 @@
     
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+}
 -(void)loadHistory{
     [_history removeAllObjects];
     NSMutableArray* array = [Config loadSearchHistory];
@@ -124,7 +132,7 @@
     switch (_state) {
         case Idle:{
             [_searchBar resignFirstResponder];
-            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            [self.navigationController popViewControllerAnimated:YES ];
             break;
         }
         case Search:{
@@ -236,6 +244,7 @@
     JSContext *context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     QF* qf = [[QF alloc] init];
     context[@"QF"] = qf;
+    qf.fromVC = self;
     _HUD.hidden = YES;
 }
 

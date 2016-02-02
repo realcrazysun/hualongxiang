@@ -11,6 +11,7 @@
 #import "CommonDefines.h"
 #import "HLXTopicMainViewController.h"
 #import "HLXRecommendTableViewController.h"
+#import "DarenViewController.h"
 @interface HLXFriendCircleViewController ()<UIScrollViewDelegate>
 @property(nonatomic,strong)UIView* indicatorView;
 @property(nonatomic,strong)UIView* btnView;
@@ -109,8 +110,8 @@
     [self.view addSubview:_contentView];
     [self initControllers];
 }
+
 -(void)btnClicked:(UIButton*)btn{
-    NSLog(@"%ld",btn.tag);
     [self btnChangeToIndex:btn.tag];
     CGFloat offsetX = btn.tag * self.contentView.frame.size.width;
     CGFloat offsetY = self.contentView.contentOffset.y;
@@ -141,8 +142,8 @@
     HLXRecommendTableViewController* controller2 = [[HLXRecommendTableViewController alloc] init];
 //    controller2.view.backgroundColor = [UIColor blueColor];
     
-    UIViewController* controller3 = [[UIViewController alloc] init];
-    controller3.view.backgroundColor = [UIColor yellowColor];
+    DarenViewController* controller3 = [[DarenViewController alloc] init];
+//    controller3.view.backgroundColor = [UIColor yellowColor];
     
     [self addChildViewController:controller1];
     [self addChildViewController:controller2];

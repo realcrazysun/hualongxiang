@@ -6,8 +6,8 @@
 //  Copyright © 2016年 crazysun. All rights reserved.
 //
 
-#import "BottomBarController.h"
+#import <UIKit/UIKit.h>
 
-@interface DetailInfoViewController : BottomBarController
-
+@interface DetailInfoViewController : UIViewController
+-(instancetype)init:(BOOL)showBottom loadUrl:(NSString *)loadUrl liked:(BOOL)liked replyNums:(NSUInteger)replyNums ;
 @end

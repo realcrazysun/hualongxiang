@@ -14,6 +14,8 @@
 -(void)setData:(NSString*)timeString
         header:(HotInfoHeadModel*)header
           news:(NSArray*)arr;
+@property(nonatomic,strong) void (^tapImgBlock)();
+@property(nonatomic,strong) void (^tapViewBlock)(NSUInteger idx);
 @end
 
 @interface NewsView : UIView

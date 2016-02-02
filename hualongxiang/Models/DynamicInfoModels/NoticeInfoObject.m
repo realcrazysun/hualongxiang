@@ -20,7 +20,10 @@
 @end
 
 @implementation NoticeListInfoObject
-
++ (NSDictionary *)replacedKeyFromPropertyName
+{
+    return @{@"objdescription" : @"description"};
+}
 -(BOOL)isEqual:(id)object{
     return NO;
 }

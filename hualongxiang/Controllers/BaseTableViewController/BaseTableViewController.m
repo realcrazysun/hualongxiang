@@ -7,15 +7,17 @@
 //
 
 #import "BaseTableViewController.h"
-#import "MJRefresh.h"
+#import <MJRefresh.h>
 #import "AFHTTPSessionManagerTool.h"
 #import "HLXApi.h"
 #import "MBProgressHUD.h"
 #import "Utils.h"
 #import "ResponseRootObject.h"
+#import "CommonDefines.h"
 
 @interface BaseTableViewController ()
 @property(nonatomic,assign) int pageNum;
+
 @end
 
 @implementation BaseTableViewController
@@ -24,6 +26,7 @@
 {
     self = [super init];
     if (self) {
+        _lastRefreshtime = [[NSDate date] timeIntervalSince1970];
         _objects = [NSMutableArray new];
     }
     return self;
@@ -34,11 +37,36 @@
     self.automaticallyAdjustsScrollViewInsets=NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     _pageNum = 1;
-    __unsafe_unretained __typeof(self) weakSelf = self;
+    
+    __weak __typeof(self) weakSelf = self;
+    // 设置普通状态的动画图片
+    NSMutableArray *idleImages = [NSMutableArray array];
+    for (NSUInteger i = 1; i<=60; i++) {
+        UIImage *image = [UIImage imageNamed:@"ic_load_empty"];
+        [idleImages addObject:image];
+    }
+    
+    // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
+    NSMutableArray *refreshingImages = [NSMutableArray array];
+    for (NSUInteger i = 1; i<=2; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"ic_loading_%zd", i]];
+        [refreshingImages addObject:image];
+    }
+
+    //设置普通状态的动画图片
+    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
+    // 设置普通状态的动画图片
+    [header setImages:idleImages forState:MJRefreshStateIdle];
+    // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
+    [header setImages:refreshingImages forState:MJRefreshStatePulling];
+    // 设置正在刷新状态的动画图片
+    [header setImages:refreshingImages forState:MJRefreshStateRefreshing];
+    
+    self.tableView.mj_header = header;
     // 下拉刷新
-    self.tableView.mj_header =   [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [weakSelf refresh];
-    }];
+//    self.tableView.mj_header =   [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        [weakSelf refresh];
+//    }];
     //上拉加载
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [weakSelf fetchMore];
@@ -52,7 +80,7 @@
 
 //刷新
 -(void)refresh{
-    [self fetchObjects:0 refresh:YES];
+    [self fetchObjects:1 refresh:YES];
 }
 //刷新
 -(void)fetchMore{
@@ -89,19 +117,24 @@
 #pragma mark --获取数据并放入object中  如果refresh则清空当前数据
 -(void)fetchObjects:(NSUInteger)page refresh:(BOOL)refresh
 {
-    [AFHTTPSessionManagerTool sendHttpPost:self.generateURL(page)
+    NSDictionary* params = nil;
+    if (self.generateParams) {
+            params = self.generateParams(page);
+    }
+
+    [AFHTTPSessionManagerTool sendHttpPost:self.generateURL()
                                     prefix:HLXAPI_PREFIX
-                                parameters:nil
+                                parameters:params
                                    success:^(NSURLSessionDataTask * task, id responseObject) {
                                        ResponseRootObject* model = [ResponseRootObject mj_objectWithKeyValues:responseObject];
                                        if (![model.ret isEqualToString:@"0"]) {
                                            NSLog(@"数据返回异常");
+//                                           ShowLoginExpireInfo
+//                                           return ;
                                        }
-//                                       NSLog(@"数据加载成功---:%@",responseObject);
-                                       //处理获得的数据
                                      
                                        if (refresh) {
-                                           _pageNum = 0;
+                                           _pageNum = 1;
                                            [_objects removeAllObjects];//如果加载第0页则会清空当前_objects
                                        }
                                        
@@ -124,6 +157,7 @@
                                        int addCount = (int)[_objects count] - beforeCount;
                                        
                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                        [self.tableView reloadData];
                                            if (addCount == 0){
                                                [self.tableView.mj_footer endRefreshingWithNoMoreData];
                                            }
@@ -133,7 +167,7 @@
                                            if(self.tableView.mj_footer.isRefreshing){
                                                [self.tableView.mj_footer endRefreshing];
                                            }
-                                           [self.tableView reloadData];
+                                         
                                        });
                                        
                                    } failure:^(NSURLSessionDataTask * task, NSError * error) {
@@ -142,9 +176,10 @@
                                        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"HUD-error"]];
                                        HUD.detailsLabelText = [NSString stringWithFormat:@"%@", error.userInfo[NSLocalizedDescriptionKey]];
                                        [HUD hide:YES afterDelay:1];
-                                       [self.tableView reloadData];
+//                                       [self.tableView reloadData];
                                        
                                    }];
+    _lastRefreshtime = [self.tableView.mj_header.lastUpdatedTime timeIntervalSince1970];
 }
 
 - ( UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{

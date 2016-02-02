@@ -12,6 +12,8 @@
 #import "HotInfoModel.h"
 #import "ActivityInfoTableViewCell.h"
 #import "ActivityInfo.h"
+#import "DetailInfoViewController.h"
+#import "AFHTTPSessionManagerTool.h"
 static NSString* reuseIdentifier = @"activityInfo";
 @interface ActivityInfoController ()
 
@@ -22,10 +24,19 @@ static NSString* reuseIdentifier = @"activityInfo";
 -(instancetype)init{
     self=[super init];
     if (self) {
-        self.generateURL = ^(NSUInteger idx){
+        self.generateURL = ^(){
             return [NSString stringWithFormat:@"%@", HLXAPI_ACTIVITY];
         };
         self.objClass = [ActivityInfo class];
+        self.generateParams = ^(NSUInteger page){
+            NSMutableDictionary* parameters = [AFHTTPSessionManagerTool defaultParameters];
+            NSMutableDictionary* data = [[NSMutableDictionary alloc] init];
+            NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+            [params setObject:[NSNumber numberWithInteger:page] forKey:@"page"];
+            [data setObject:params forKey:@"params"];
+            [parameters setObject:[data mj_JSONString] forKey:@"data"];
+            return parameters;
+        };
     }
     return self;
 }
@@ -51,5 +62,20 @@ static NSString* reuseIdentifier = @"activityInfo";
     [cell setModel:info];
     return cell;
 }
-
+#pragma mark -- tableView delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    ActivityInfo* info = self.objects[indexPath.row];
+    NSString* loadUrl = info.url;
+    BOOL bottomBar = NO;
+    if ([loadUrl isEqualToString:@""]) {
+        loadUrl = [NSString stringWithFormat:HLXAPI_VIEW_THREAD,info.belong_id];
+        bottomBar = YES;
+    }
+    DetailInfoViewController* controller = [[DetailInfoViewController alloc] init:bottomBar
+                                                                          loadUrl:loadUrl
+                                                                            liked:YES
+                                                                        replyNums:0];
+    [self.navigationController pushViewController:controller animated:YES];
+    
+}
 @end

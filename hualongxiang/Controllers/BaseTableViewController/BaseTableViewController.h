@@ -12,7 +12,9 @@
 @interface BaseTableViewController : UITableViewController
 @property(nonatomic,strong)NSMutableArray * objects;//要展示的数据Models
 @property(nonatomic,strong) Class objClass;
-@property(nonatomic,copy) NSString * (^generateURL)(NSUInteger page);
+@property(nonatomic,copy) NSString * (^generateURL)();
+@property(nonatomic,copy) NSMutableDictionary * (^generateParams)(NSUInteger page);
+@property(nonatomic,assign)int64_t lastRefreshtime;
 -(NSArray*)parse:(ResponseRootObject*)response;
 -(void)refresh;
 @end

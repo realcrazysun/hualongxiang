@@ -12,6 +12,10 @@
 #import "UIImageView+Util.h"
 #import "CommonDefines.h"
 @interface HotInfoTableViewCell()
+{
+    HotInfoHeadModel* _header;
+    NSArray* _newsArr;
+}
 @property(strong,nonatomic)UIView* backgroundImgView;
 @property(nonatomic ,strong)UILabel *time;
 @property(nonatomic ,strong)UIImageView *imgView;
@@ -34,7 +38,7 @@
 -(void)setup{
     
     //用frame模型方便等分  计算  最好是填充数据时 根据数据动态计算frame  VFL如何动态添加view是一个问题
-    CGFloat width   =     ScreenWidth;
+    CGFloat width   = ScreenWidth;
     CGFloat height  = HotInfoCellHeight;
     
     _time                      = [[UILabel alloc] initWithFrame:CGRectMake(width/2-35, 5, 70, 20)];
@@ -55,7 +59,7 @@
     _imgView = [[UIImageView alloc] initWithFrame:imageViewRect];
     _imgView.backgroundColor = [UIColor blueColor];
     [_backgroundImgView addSubview:_imgView];
-    
+
     CGRect imageTextRect = CGRectMake(0, _imgView.frame.size.height-40, _imgView.frame.size.width , 40);
     _imgText = [[UILabel alloc] initWithFrame:imageTextRect];
     _imgText.alpha = 0.7;
@@ -65,7 +69,9 @@
     _imgText.backgroundColor = [UIColor blackColor];
     _imgText.textColor = [UIColor whiteColor];
     [_imgView addSubview:_imgText];
-    
+    _imgView.userInteractionEnabled = YES;
+    UITapGestureRecognizer* tapImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImg)];
+    [_imgView addGestureRecognizer:tapImg];
     
 #warning  cell不应该动态添加view 否则cell重用会有问题
     CGFloat _backgroundImgViewWidth = _backgroundImgView.frame.size.width;
@@ -82,6 +88,9 @@
 -(void)setData:(NSString*)timeString
         header:(HotInfoHeadModel*)header
           news:(NSArray*)arr{
+    _header = header;
+    _newsArr = arr;
+    
     _time.text = timeString;
     NSURL* url = [NSURL URLWithString:header.cover];
     [_imgView loadPortrait:url];
@@ -92,68 +101,25 @@
         NewsView* view = _newsViewArr[i];
         view.text.text = model.replaceTitle;
         NSURL* url = [NSURL URLWithString:model.cover];
+        view.tag = i;
+        view.userInteractionEnabled = YES;
+        UITapGestureRecognizer* recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapView:)];
+        [view addGestureRecognizer:recognizer];
         [view.imgView loadPortrait:url];
     }
     
 }
 
-//
-//-(void)initSubviews{
-//    
-//    _time                      = [UILabel new];
-//    _time.numberOfLines        = 1;
-//    _time.font                 = [UIFont systemFontOfSize:13];
-//    [_time setCornerRadius:2];
-//    _time.backgroundColor = [UIColor grayColor];
-//    _time.textColor       = [UIColor whiteColor];
-//    [self.contentView addSubview:_time];
-//    [_time setTextAlignment:NSTextAlignmentCenter];
-//    
-//    _backgroundImgView = [[UIView alloc] init];
-//    _backgroundImgView.backgroundColor = [UIColor whiteColor];
-//    [_backgroundImgView setCornerRadius:3];
-//    
-//    [self.contentView addSubview:_backgroundImgView];
-//    
-//    
-//    
-//}
-//#warning 这样写太麻烦了  而且扩展性太差  stackView能解决问题？   暂时用写死的frame计算一下吧
-//-(void)setLayout{
-//    
-//    for (UIView *view in self.contentView.subviews) {view.translatesAutoresizingMaskIntoConstraints = NO;}
-//    
-//    NSDictionary *views = NSDictionaryOfVariableBindings(_time, _backgroundImgView);
-//    
-//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|->=100-[_time(<=80)]->=100-|"
-//                                                                             options:0
-//                                                                             metrics:nil views:views]];
-//    
-//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-10-[_backgroundImgView]-10-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
-//    
-//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_time]-5-[_backgroundImgView]-0-|" options:NSLayoutFormatAlignAllLeft metrics:nil views:views]];
-//    
-//    [self.contentView addConstraint:
-//     [NSLayoutConstraint constraintWithItem:_time attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-//    
-//}
-//
-/**
- *  填充数据
- *
- *  @param imageUrl  顶部图片
- *  @param imgString 图片描述
- *  @param arr       底部图文新闻
- */
-//-(void)setImgArr:(NSString*)imageUrl  imgString:(NSString*)imgString news:(NSArray*)arr{
-//    UIImageView* imageView = [UIImageView new];
-//    imageView.backgroundColor = [UIColor redColor];
-//    imageView.translatesAutoresizingMaskIntoConstraints = NO;//注意嵌套时要单独设置
-//    [_backgroundImgView addSubview:imageView];
-//}
-
-
-
+-(void)tapImg{
+    if (self.tapImgBlock) {
+        self.tapImgBlock();
+    }
+}
+-(void)tapView:(UIGestureRecognizer*)recognizer{
+    if (self.tapViewBlock) {
+        self.tapViewBlock(recognizer.view.tag);
+    }
+}
 
 @end
 
@@ -162,6 +128,7 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
+        self.userInteractionEnabled = YES;
         CGFloat width = frame.size.height - 10;
         CGFloat imgX = frame.size.width - 5 - width;
         
@@ -179,5 +146,18 @@
     }
     return self;
 }
+
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+//    [super touchesBegan:touches withEvent:event];
+//    [self setBackgroundColor:[UIColor colorWithRed:227/255.0 green:227/255.0 blue:227/255.0 alpha:1.0]];
+//}
+//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+//    [super touchesEnded:touches withEvent:event];
+//    [self setBackgroundColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]];
+//}
+//- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+//    [super touchesCancelled:touches withEvent:event];
+//    [self setBackgroundColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]];
+//}
 
 @end

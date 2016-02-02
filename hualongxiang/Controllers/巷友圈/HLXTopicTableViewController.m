@@ -22,7 +22,7 @@
 -(instancetype)init{
     self=[super init];
     if (self) {
-        self.generateURL = ^(NSUInteger idx){
+        self.generateURL = ^(){
             return [NSString stringWithFormat:@"%@", HLXAPI_TOPICRANK];
         };
         self.objClass = [HLXTopic class];

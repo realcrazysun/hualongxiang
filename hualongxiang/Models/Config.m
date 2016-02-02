@@ -143,4 +143,10 @@ NSString * const kSearchHistory = @"searchHistory";
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     return [userDefaults integerForKey:kUid];
 }
+
++ (BOOL)hasOwnId
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults integerForKey:kUid]>0;
+}
 @end

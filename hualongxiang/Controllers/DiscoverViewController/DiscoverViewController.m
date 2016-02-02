@@ -19,7 +19,7 @@
 #import "MJRefresh.h"
 #import "TOWebViewController.h"
 #import "ScanViewController.h"
-
+#import "DetailInfoViewController.h"
 @interface DiscoverViewController ()
 @property (nonatomic, strong) NSMutableArray *sections;
 @end
@@ -185,12 +185,13 @@ static NSString * const reuseHeaderIdentifier   = @"HeaderViewCell";
 //        NSLog(@"点击了单个collectionViewCell 而不是 空白 cell");
         DiscoverSectionModel* sectionModel = _sections[indexPath.section];
         DiscoverItemModel*  itemModel      = sectionModel.val[indexPath.row];
-        TOWebViewController* webController = [[TOWebViewController alloc] initWithURLString:itemModel.url];
-        webController.showUrlWhileLoading  = NO;
+        DetailInfoViewController* vc = [[DetailInfoViewController alloc] init:NO loadUrl:itemModel.url liked:NO replyNums:0];
+//        TOWebViewController* webController = [[TOWebViewController alloc] initWithURLString:itemModel.url];
+//        webController.showUrlWhileLoading  = NO;
 //        webController.showActionButton     = NO;
 //        webController.showDoneButton       = YES;
 //        webController.doneButtonTitle = @"...";
-        [self.navigationController pushViewController:webController animated:YES];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

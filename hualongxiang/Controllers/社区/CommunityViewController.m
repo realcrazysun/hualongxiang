@@ -24,8 +24,9 @@
 #import "NSDateFormatter+Singleton.h"
 #import "AllBlocksViewController.h"
 #import "EditViewController.h"
+#import "SearchViewController.h"
 static NSString* reuseIdentifier = @"activityInfo";
-@interface CommunityViewController ()<UIScrollViewDelegate>
+@interface CommunityViewController ()<UIScrollViewDelegate,UISearchBarDelegate>
 @property(nonatomic,strong)CommunityHeaderView* head;
 @end
 
@@ -34,7 +35,7 @@ static NSString* reuseIdentifier = @"activityInfo";
 -(instancetype)init{
     self=[super init];
     if (self) {
-        self.generateURL = ^(NSUInteger idx){
+        self.generateURL = ^(){
             return [NSString stringWithFormat:@"%@", HLXAPI_ACTIVITY];
         };
         self.objClass = [ActivityInfo class];
@@ -75,6 +76,7 @@ static NSString* reuseIdentifier = @"activityInfo";
     _head.frame = frame;
     [view addSubview:_head];
     _head.scrollView.delegate = self;
+    _head.searchBar.delegate = self;
     self.tableView.tableHeaderView = view ;
     
 }
@@ -91,10 +93,10 @@ static NSString* reuseIdentifier = @"activityInfo";
 
 -(void)refresh{
     [super refresh];
-    
+    NSMutableDictionary* dic = [AFHTTPSessionManagerTool defaultParameters];
     [AFHTTPSessionManagerTool sendHttpPost:HLXAPI_JUHEBANKUAI
                                     prefix:HLXAPI_PREFIX
-                                parameters:nil
+                                parameters:dic
                                    success:^(NSURLSessionDataTask * task, id responseObject) {
                                        ResponseRootObject* model = [ResponseRootObject mj_objectWithKeyValues:responseObject];
                                        if (![model.ret isEqualToString:@"0"]) {
@@ -144,6 +146,13 @@ static NSString* reuseIdentifier = @"activityInfo";
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView;{
     _head.pageControl.currentPage = (_head.scrollView.contentOffset.x/_head.scrollView.frame.size.width);
     //    NSLog(@"%d",_head.pageControl.currentPage);
+}
+
+#pragma mark -- searchBar delegate
+-(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+    SearchViewController *vc = [SearchViewController new];
+    [self.navigationController pushViewController:vc animated:NO];
+    return NO;
 }
 @end
 

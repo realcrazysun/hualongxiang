@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
 #import <JavaScriptCore/JavaScriptCore.h>
+#import <UIKit/UIKit.h>
 @protocol PersonProtocol <JSExport>
 -(void)callNative:(NSDictionary*)dic;
 @end
 @interface QF : NSObject<PersonProtocol>
-
+@property(nonatomic,strong)UIViewController* fromVC;
 @end

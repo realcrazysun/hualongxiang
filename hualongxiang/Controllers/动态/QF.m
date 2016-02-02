@@ -18,15 +18,17 @@
     NSLog(@"%@",dic);
     NSString* method = [dic objectForKey:@"method"];
     NSDictionary* params = [dic objectForKey:@"params"];
-    
-    DetailInfoViewController* controller = [[DetailInfoViewController alloc] init];
-    UINavigationController* navVC = [[UINavigationController alloc] initWithRootViewController:controller];
-    UIViewController* curVc = [Utils getPresentedViewController];
-    if ([curVc isKindOfClass:[UINavigationController class]]) {
-        [curVc presentViewController:navVC animated:YES completion:nil];
-    }else{
-        [curVc.navigationController presentViewController:navVC animated:NO completion:nil];
+#warning 这里要dispatch至主线程执行UI操作
+    dispatch_async(dispatch_get_main_queue(), ^{
+        DetailInfoViewController* controller = [[DetailInfoViewController alloc] init:NO
+                                                                              loadUrl:@"http://hualongxiang.qianfanapi.com/v1_4/wap/view-thread?tid=12449377&isSeeMaster=0&replyOrder=0&viewpid=0"
+                                                                                liked:(BOOL)YES
+                                                                            replyNums:(NSUInteger)11];
         
-    }
+        
+        
+        [self.fromVC.navigationController pushViewController:controller animated:YES];
+    });
+    
 }
 @end

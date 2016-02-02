@@ -21,4 +21,5 @@
 +(void)addSearchHistory:(NSString*)searchInfo;
 +(void)clearSearchHistory;
 +(int64_t)getOwnID;
++(BOOL)hasOwnId;
 @end
