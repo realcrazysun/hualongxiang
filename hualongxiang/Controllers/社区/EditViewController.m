@@ -132,7 +132,6 @@
     AllBlocksViewController *vc = [AllBlocksViewController new];
     __block typeof(self) blockself = self;
     vc.chooseBlock = ^(Subforum* subforum){
-        NSLog(@"excute block");
         blockself.subforum = subforum;
         blockself.navtitle.text = [NSString stringWithFormat:@"%@%@",subforum.name,@"▾"];
     };

@@ -31,4 +31,7 @@
     });
     
 }
+-(void)callLog:(NSString*)string{
+    NSLog(@"%@",string);
+}
 @end

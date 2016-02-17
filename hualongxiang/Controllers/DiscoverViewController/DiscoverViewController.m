@@ -182,7 +182,6 @@ static NSString * const reuseHeaderIdentifier   = @"HeaderViewCell";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     DiscoverViewCell* cell = (DiscoverViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
     if ([cell.reuseIdentifier isEqualToString:reuseIdentifier]) {
-//        NSLog(@"点击了单个collectionViewCell 而不是 空白 cell");
         DiscoverSectionModel* sectionModel = _sections[indexPath.section];
         DiscoverItemModel*  itemModel      = sectionModel.val[indexPath.row];
         DetailInfoViewController* vc = [[DetailInfoViewController alloc] init:NO loadUrl:itemModel.url liked:NO replyNums:0];

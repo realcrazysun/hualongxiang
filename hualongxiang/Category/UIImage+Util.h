@@ -12,5 +12,5 @@
 
 - (UIImage *)imageMaskedWithColor:(UIColor *)maskColor;
 - (UIImage *)cropToRect:(CGRect)rect;
-
++ (UIImage *) imageWithColor:(UIColor *)color;
 @end

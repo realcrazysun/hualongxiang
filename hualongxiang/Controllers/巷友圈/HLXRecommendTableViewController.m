@@ -20,11 +20,14 @@
 #import "UITableView+SDAutoTableViewCellHeight.h"
 #import "HLXTopicCell.h"
 #import "PhotoViewController.h"
+#import "UserInfoViewController.h"
+
 #define SECTIONHEIGHT 30
 static NSString* identifier1 = @"identifier1";
 static NSString* newPostCellIdentifier = @"newPostCell";
 static NSString* topicIndentifier = @"topicIndentifier";
-@interface HLXRecommendTableViewController ()
+
+@interface HLXRecommendTableViewController ()<CommentViewDelegate>
 
 @property(nonatomic,copy)   NSArray * topADData;   //今日广告数据
 @property(nonatomic,copy)   NSArray * topics;   //话题
@@ -41,6 +44,24 @@ static NSString* topicIndentifier = @"topicIndentifier";
             return [NSString stringWithFormat:@"%@", HLXAPI_RECOMMEND];
         };
         self.objClass = [NewPost class];
+        typeof(self) __weak weakself = self;
+        self.generateParams = ^(NSUInteger page){
+            NSMutableDictionary* parameters = [AFHTTPSessionManagerTool defaultParameters];
+            NSMutableDictionary* data = [[NSMutableDictionary alloc] init];
+            NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+            [params setObject:[NSNumber numberWithInteger:page] forKey:@"page"];
+            if(weakself.objects&&weakself.objects.count>0){
+                NewPost* post = [weakself.objects lastObject];
+                [params setObject:post.postId forKey:@"id"];
+            }else{
+                [params setObject:@"0" forKey:@"id"];
+            }
+            
+            [data setObject:params forKey:@"params"];
+            [parameters setObject:[data mj_JSONString] forKey:@"data"];
+            return parameters;
+        };
+
     }
     return self;
 }
@@ -260,6 +281,7 @@ static NSString* topicIndentifier = @"topicIndentifier";
         NewPostCell* cell = [tableView dequeueReusableCellWithIdentifier:newPostCellIdentifier];
         NewPost* model = self.objects[indexPath.row];
         [cell setModel:model];
+        [cell setCommentViewDelegate:self];
         return cell;
     }else{
         UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"www"];
@@ -310,5 +332,14 @@ static NSString* topicIndentifier = @"topicIndentifier";
 -(void)clickMoreHotInfo{
     PhotoViewController * vc = [[PhotoViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark CommentViewDelegate
+-(void)clickLabel:(long long)uid{
+    UIStoryboard *userSB = [UIStoryboard storyboardWithName:@"UserInfo" bundle:nil];
+    UserInfoViewController * controller = [userSB instantiateViewControllerWithIdentifier:@"userInfoViewController"];
+    controller.uid = (int)uid;
+    [self.navigationController pushViewController:controller animated:YES];
+
 }
 @end

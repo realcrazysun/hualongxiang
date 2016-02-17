@@ -250,7 +250,6 @@
         //
         ResponseRootObject* rootObj = [ResponseRootObject mj_objectWithKeyValues:responseObj];
         if ([rootObj.ret isEqualToString:@"0"]) {
-            //NSLog(@"数据返回成功");
             NSArray* arr = rootObj.data;
             if (arr.count>0) {
                 for (int i = 0; i < arr.count; i++) {

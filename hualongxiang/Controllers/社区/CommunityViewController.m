@@ -145,7 +145,6 @@ static NSString* reuseIdentifier = @"activityInfo";
 #pragma mark--scrollView delegate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView;{
     _head.pageControl.currentPage = (_head.scrollView.contentOffset.x/_head.scrollView.frame.size.width);
-    //    NSLog(@"%d",_head.pageControl.currentPage);
 }
 
 #pragma mark -- searchBar delegate

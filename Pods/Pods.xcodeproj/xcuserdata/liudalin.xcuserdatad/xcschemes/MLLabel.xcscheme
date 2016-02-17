@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'A012899E88342163DBCFC065'
+               BlueprintIdentifier = '7D56ACE8DDE3D5AAC80EB4A4'
                BlueprintName = 'MLLabel'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libMLLabel.a'>

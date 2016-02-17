@@ -51,7 +51,6 @@
     [parameters setObject:@"4.4.0" forKey:@"version"];
     
     [AFHTTPSessionManagerTool sendHttpPost:HLXAPI_THIRD_LOGIN prefix:HLXAPI_PREFIX parameters:parameters success:^(NSURLSessionDataTask *task, id responseOBJ) {
-        NSLog(@"%@",responseOBJ);
         ResponseRootObject* obj = [ResponseRootObject mj_objectWithKeyValues:responseOBJ];
         if ([obj.ret isEqual:@"0"]) {
             User* user = [User mj_objectWithKeyValues:obj.data];

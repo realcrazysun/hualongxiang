@@ -24,53 +24,28 @@
 #import "Utils.h"
 #import <MBProgressHUD.h>
 #import "HotRecommend.h"
-@interface PhotoViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,HMWaterflowLayoutDelegate,DOPNavbarMenuDelegate>
+#import "WEPopoverViewController.h"
+#import "WEPopoverContentViewController.h"
+#import <WEPopoverController.h>
+@interface PhotoViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,HMWaterflowLayoutDelegate>
 @property(nonatomic,assign) int pageNum;
-@property (nonatomic , weak) UICollectionView *collectionView;
-@property (nonatomic , strong) NSMutableArray *photoArray;
+@property (nonatomic , weak)    UICollectionView *collectionView;
+@property (nonatomic , strong)  NSMutableArray *photoArray;
+@property (nonatomic , assign)  PhotoType type;
+@property (nonatomic , strong)  WEPopoverController * popoverController;
+@property (nonatomic , strong)  UIButton* titleBtn;//标题栏按钮
 
-@property (nonatomic , assign) int pn;
-@property (nonatomic , copy) NSString *tag1;
-@property (nonatomic , copy) NSString *tag2;
-@property (nonatomic , assign) NSInteger numberOfItemsInRow;
-//@property (nonatomic , strong) DOPNavbarMenu *menu;
-@property (nonatomic , strong) NSArray *classArray;
+//@property (nonatomic , assign) int pn;
+//@property (nonatomic , copy) NSString *tag1;
+//@property (nonatomic , copy) NSString *tag2;
+//@property (nonatomic , assign) NSInteger numberOfItemsInRow;
+
 
 @end
 
 @implementation PhotoViewController
 
 static NSString *const ID = @"photo";
-
--(NSArray *)classArray
-{
-    if (!_classArray) {
-        _classArray = @[
-                        [DOPNavbarMenuItem ItemWithTitle:@"美女" icon:[UIImage imageNamed:@"meinvchannel"]],
-                        [DOPNavbarMenuItem ItemWithTitle:@"明星" icon:[UIImage imageNamed:@"mingxing"]],
-                        [DOPNavbarMenuItem ItemWithTitle:@"汽车" icon:[UIImage imageNamed:@"qiche"]],
-                        [DOPNavbarMenuItem ItemWithTitle:@"宠物" icon:[UIImage imageNamed:@"chongwu"]],
-                        [DOPNavbarMenuItem ItemWithTitle:@"动漫" icon:[UIImage imageNamed:@"dongman"]],
-                        [DOPNavbarMenuItem ItemWithTitle:@"设计" icon:[UIImage imageNamed:@"sheji"]],
-                        [DOPNavbarMenuItem ItemWithTitle:@"家居" icon:[UIImage imageNamed:@"jiaju"]],
-                        [DOPNavbarMenuItem ItemWithTitle:@"婚嫁" icon:[UIImage imageNamed:@"hunjia"]],
-                        [DOPNavbarMenuItem ItemWithTitle:@"摄影" icon:[UIImage imageNamed:@"sheying"]],
-                        [DOPNavbarMenuItem ItemWithTitle:@"美食" icon:[UIImage imageNamed:@"meishi"]]
-                        ];
-    }
-    return _classArray;
-}
-
-//- (DOPNavbarMenu *)menu {
-//    if (_menu == nil) {
-//
-//        _menu = [[DOPNavbarMenu alloc] initWithItems:self.classArray width:self.view.dop_width maximumNumberInRow:_numberOfItemsInRow];
-//        _menu.backgroundColor = [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0.8];
-//        _menu.separatarColor = [UIColor clearColor];
-//        _menu.delegate = self;
-//    }
-//    return _menu;
-//}
 
 -(NSMutableArray *)photoArray
 {
@@ -83,15 +58,10 @@ static NSString *const ID = @"photo";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _type = PhotoTypeDay;
     [self initNavigationBar];
     
-    //    self.numberOfItemsInRow = 4;
-    //    self.navigationItem.rightBarButtonItem = [UIBarButtonItem ItemWithIcon:@"categories" highIcon:nil target:self action:@selector(openMenu:)];
-    //
-    //    self.pn = 0;
-    //    self.tag1 = @"美女";
-    //    self.tag2 = @"小清新";
-    //
+
     [self initCollection];
     [self setupRefreshView];
     //
@@ -113,16 +83,76 @@ static NSString *const ID = @"photo";
     UIBarButtonItem* photo = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_pai_photo"] style:UIBarButtonItemStylePlain target:self action:@selector(clickPhoto)];
     [item setRightBarButtonItem:photo];
     
-    UIButton* titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [titleBtn setTitle:@"今日热门 ▾" forState:UIControlStateNormal];
-    [item setTitleView:titleBtn];
-//    [item setTitle:@"今日热门▾"];
+    _titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_titleBtn setTitle:[NSString stringWithFormat:@"%@ ▿" ,itemArr[_type]] forState:UIControlStateNormal];
+    [_titleBtn addTarget:self action:@selector(showPopover:) forControlEvents:UIControlEventTouchUpInside];
+    [item setTitleView:_titleBtn];
+    
     [bar pushNavigationItem:item animated:NO];
     [self.view bringSubviewToFront:bar];
     
-    
     [self.view addSubview:bar];
     
+}
+
+- (void) showPopover:(UIButton*)sender {
+    
+    if (!self.popoverController) {
+        
+        WEPopoverContentViewController *contentViewController = [[WEPopoverContentViewController alloc] initWithStyle:UITableViewStylePlain currentType:_type];
+        typeof(self) __weak weakself = self;
+        contentViewController.clickItem = ^(NSString* item){
+            [weakself.titleBtn setTitle: [NSString stringWithFormat:@"%@ ▿" ,item] forState:UIControlStateNormal];
+            weakself.type = [itemArr indexOfObject:item];
+            [weakself.collectionView.mj_header beginRefreshing];
+            [weakself.popoverController dismissPopoverAnimated:YES];
+            weakself.popoverController = nil;
+        };
+        self.popoverController = [[WEPopoverController alloc] initWithContentViewController:contentViewController];
+        self.popoverController.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
+//        self.popoverController.delegate = self;
+        
+        [self.popoverController setContainerViewProperties:[self improvedContainerViewProperties]];
+        CGRect rect = CGRectMake(sender.frame.origin.x, sender.frame.origin.y+10, sender.frame.size.width, sender.frame.size.height);
+        [self.popoverController presentPopoverFromRect:rect
+                                               inView:self.view
+                                       permittedArrowDirections:(UIPopoverArrowDirectionUp)
+                                                       animated:YES];
+        
+
+
+    } else {
+        [self.popoverController dismissPopoverAnimated:YES];
+        self.popoverController = nil;
+    }
+}
+
+
+- (WEPopoverContainerViewProperties *)improvedContainerViewProperties {
+    
+    WEPopoverContainerViewProperties *props = [[WEPopoverContainerViewProperties alloc] init];
+    NSString *bgImageName = nil;
+    CGFloat bgMargin = 0.0;
+    CGFloat bgCapSize = 0.0;
+    CGFloat contentMargin = 0;
+    
+    bgImageName = @"popoverBg.png";
+    
+    props.backgroundMargins = UIEdgeInsetsMake(bgMargin, bgMargin, bgMargin, bgMargin);
+    props.leftBgCapSize = bgCapSize;
+    props.topBgCapSize = bgCapSize;
+    props.bgImageName = bgImageName;
+    
+    props.contentMargins = UIEdgeInsetsMake(contentMargin, contentMargin, contentMargin, contentMargin);
+    
+    props.arrowMargin = 0;
+    
+    props.upArrowImageName = @"popoverArrowUp.png";
+    props.downArrowImageName = @"popoverArrowDown.png";
+    props.leftArrowImageName = @"popoverArrowLeft.png";
+    props.rightArrowImageName = @"popoverArrowRight.png";
+    props.maskBorderWidth = 0;
+    return props;	
 }
 
 -(void)clickBack{
@@ -169,10 +199,10 @@ static NSString *const ID = @"photo";
 -(void)setupRefreshView
 {
     //1.下拉刷新
-    self.collectionView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
-    [self.collectionView.header beginRefreshing];
+    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    [self.collectionView.mj_header beginRefreshing];
     //2.上拉刷新
-    self.collectionView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     
 }
 #pragma mark  下拉
@@ -202,14 +232,21 @@ static NSString *const ID = @"photo";
 -(void)fetchObjects:(NSUInteger)page refresh:(BOOL)refresh
 {
     NSMutableDictionary* parameters = [AFHTTPSessionManagerTool defaultParameters];
-    
+    NSMutableDictionary* data = [[NSMutableDictionary alloc] init];
+        NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+        [params setObject:[NSNumber numberWithInt:page] forKey:@"page"];
+        [params setObject:[NSNumber numberWithInt:_type] forKey:@"type"];
+        [data setObject:params forKey:@"params"];
+        [parameters setObject:[data mj_JSONString] forKey:@"data"];
+
     [AFHTTPSessionManagerTool sendHttpPost:HLXAPI_SIDE_HOT_LIST
                                     prefix:HLXAPI_PREFIX
                                 parameters:parameters
                                    success:^(NSURLSessionDataTask * task, id responseObject) {
                                        ResponseRootObject* obj = [ResponseRootObject mj_objectWithKeyValues:responseObject];
-                                       if (obj.ret != 0) {
+                                       if (![obj.ret isEqualToString:@"0"]) {
                                            NSLog(@"数据异常----");
+                                           return ;
                                        }
                                        
                                        if (refresh) {
@@ -224,9 +261,9 @@ static NSString *const ID = @"photo";
                                        }
                                        
                                        int addCount = (int)[self.photoArray count] - beforeCount;
-                                       
+                                    
                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                           [self.collectionView reloadData];
+                                         
                                            if (addCount == 0){
                                                [self.collectionView.mj_footer endRefreshingWithNoMoreData];
                                            }
@@ -236,7 +273,7 @@ static NSString *const ID = @"photo";
                                            if(self.collectionView.mj_footer.isRefreshing){
                                                [self.collectionView.mj_footer endRefreshing];
                                            }
-                                           
+                                           [self.collectionView reloadData];
                                        });
                                        
                                        
@@ -248,37 +285,6 @@ static NSString *const ID = @"photo";
                                        [HUD hide:YES afterDelay:1];
                                        
                                    }];
-    
-    
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-    dic[@"pn"] = [NSString stringWithFormat:@"%d",self.pn];
-    dic[@"rn"] = @60;
-    
-    NSString *urlstr = [NSString stringWithFormat:@"http://image.baidu.com/wisebrowse/data?tag1=%@&tag2=%@",self.tag1,self.tag2];
-    urlstr = [urlstr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    //    [mgr GET:urlstr parameters:dic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject){
-    //
-    //            NSArray *dataarray = [Photo objectArrayWithKeyValuesArray:responseObject[@"imgs"]];
-    //            // 创建frame模型对象
-    //            NSMutableArray *statusFrameArray = [NSMutableArray array];
-    //            for (Photo *photo in dataarray) {
-    //                [statusFrameArray addObject:photo];
-    //            }
-    //
-    //        if (dataarray.count) {
-    //            [self.photoArray removeAllObjects];
-    //        }
-    //            [self.photoArray addObjectsFromArray:statusFrameArray];
-    //
-    //            self.pn += 60;
-    //
-    //        // 刷新表格
-    //        [self.collectionView reloadData];
-    //        [self.collectionView.header endRefreshing];
-    //
-    //    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-    //
-    //    }];
 }
 
 #pragma mark 加载更多数据
@@ -320,7 +326,10 @@ static NSString *const ID = @"photo";
 {
     HotRecommend *photo = self.photoArray[indexPath.item];
     NSDictionary* dic = photo.cover;
-    NSLog(@"%@---%@",[dic objectForKey:@"height"],[dic objectForKey:@"width"]);
+    //判断width为0
+    if ([(NSString*)[dic objectForKey:@"width"] intValue] == 0) {
+        return 0;
+    }
     return [(NSString*)[dic objectForKey:@"height"] floatValue]/ [(NSString*)[dic objectForKey:@"width"] floatValue] * width;
 }
 
@@ -340,41 +349,10 @@ static NSString *const ID = @"photo";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PhotoShowViewController *photoShow = [[PhotoShowViewController alloc]init];
-    photoShow.currentIndex = (int)indexPath.row;
-    photoShow.mutaArray = self.photoArray;
-    [self.navigationController pushViewController:photoShow animated:YES];
-}
-
-
-- (void)openMenu:(id)sender {
-    self.navigationItem.rightBarButtonItem.enabled = NO;
-//    if (self.menu.isOpen) {
-//        [self.menu dismissWithAnimation:YES];
-//    } else {
-//        [self.menu showInNavigationController:self.navigationController];
-//    }
-}
-
-- (void)didShowMenu:(DOPNavbarMenu *)menu {
-    [self.navigationItem.rightBarButtonItem setTitle:@"dismiss"];
-    self.navigationItem.rightBarButtonItem.enabled = YES;
-}
-
-- (void)didDismissMenu:(DOPNavbarMenu *)menu {
-    [self.navigationItem.rightBarButtonItem setTitle:@"menu"];
-    self.navigationItem.rightBarButtonItem.enabled = YES;
-}
-
-- (void)didSelectedMenu:(DOPNavbarMenu *)menu atIndex:(NSInteger)index {
-    
-    NSArray *array = @[@"美女",@"明星",@"汽车",@"宠物",@"动漫",@"设计",@"家居",@"婚嫁",@"摄影",@"美食"];
-    [self.collectionView setContentOffset:CGPointMake(0, -64) animated:NO];
-    
-    self.pn = 0;
-    self.tag1 = array[index];
-    self.tag2 = @"全部";
-    [self.collectionView.header beginRefreshing];
+//    PhotoShowViewController *photoShow = [[PhotoShowViewController alloc]init];
+//    photoShow.currentIndex = (int)indexPath.row;
+//    photoShow.mutaArray = self.photoArray;
+//    [self.navigationController pushViewController:photoShow animated:YES];
 }
 
 

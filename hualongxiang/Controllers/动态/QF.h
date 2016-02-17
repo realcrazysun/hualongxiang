@@ -12,6 +12,7 @@
 #import <UIKit/UIKit.h>
 @protocol PersonProtocol <JSExport>
 -(void)callNative:(NSDictionary*)dic;
+-(void)callLog:(NSString*)string;
 @end
 @interface QF : NSObject<PersonProtocol>
 @property(nonatomic,strong)UIViewController* fromVC;

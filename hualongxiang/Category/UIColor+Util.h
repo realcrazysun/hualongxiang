@@ -13,24 +13,24 @@
 + (UIColor *)colorWithHex:(int)hexValue alpha:(CGFloat)alpha;
 + (UIColor *)colorWithHex:(int)hexValue;
 
-+ (UIColor *)themeColor;
-+ (UIColor *)nameColor;
-+ (UIColor *)titleColor;
-+ (UIColor *)separatorColor;
-+ (UIColor *)cellsColor;
-+ (UIColor *)titleBarColor;
-+ (UIColor *)selectTitleBarColor;
-+ (UIColor *)navigationbarColor;
-+ (UIColor *)selectCellSColor;
-+ (UIColor *)labelTextColor;
-+ (UIColor *)teamButtonColor;
-
-+ (UIColor *)infosBackViewColor;
-+ (UIColor *)lineColor;
-
-+ (UIColor *)contentTextColor;
-+ (UIColor *)borderColor;
-+ (UIColor *)refreshControlColor;
+//+ (UIColor *)themeColor;
+//+ (UIColor *)nameColor;
+//+ (UIColor *)titleColor;
+//+ (UIColor *)separatorColor;
+//+ (UIColor *)cellsColor;
+//+ (UIColor *)titleBarColor;
+//+ (UIColor *)selectTitleBarColor;
+//+ (UIColor *)navigationbarColor;
+//+ (UIColor *)selectCellSColor;
+//+ (UIColor *)labelTextColor;
+//+ (UIColor *)teamButtonColor;
+//
+//+ (UIColor *)infosBackViewColor;
+//+ (UIColor *)lineColor;
+//
+//+ (UIColor *)contentTextColor;
+//+ (UIColor *)borderColor;
+//+ (UIColor *)refreshControlColor;
 
 
 @end

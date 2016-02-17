@@ -199,7 +199,6 @@
 
 {
     
-    NSLog(@"===%@  ===%d",title,index);
     
     //点击索引，列表跳转到对应索引的行
     
@@ -213,11 +212,9 @@
 }
 #pragma mark -- searchBarDelegate
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    NSLog(@"搜索Begin");
     return YES;
 }
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
-    NSLog(@"搜索End");
     return YES;
 }
 @end

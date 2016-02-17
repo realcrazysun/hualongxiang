@@ -29,3 +29,4 @@
 @property (nonatomic, strong) NSArray *picPathStringsArray;
 
 @end
+

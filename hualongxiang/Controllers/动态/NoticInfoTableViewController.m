@@ -152,7 +152,7 @@ static NSString* reuseIdentifier3 = @"cellAD";
     if ([object.type isEqualToString:@"104"] || [object.type isEqualToString:@"301"] ) {
         return NoticInfoTableViewCellAD;
     }
-    NSLog(@"%@---%@",object.type,object.title);
+//    NSLog(@"%@---%@",object.type,object.title);
     return NoticInfoTableViewCellAD;
     
 }

@@ -90,7 +90,6 @@
 #warning 要先加layoutIfNeeded才能使约束有效  但是这里iPhone6s 和 5s显示的宽度并不一致 在6s上依然无法正确取出对应的frame宽度
     [self layoutIfNeeded];
     for (int i = 0; i < arr.count; i++) {
-        NSLog(@"%f%f",_viewForImg.frame.size.width,_viewForImg.frame.size.height);
         CGFloat width  = (_viewForImg.frame.size.width - 20 )/3;
         CGFloat height = width*3/4;
         CGFloat x = (width  + 10 ) * i;

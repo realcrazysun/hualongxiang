@@ -34,7 +34,6 @@
     [AFHTTPSessionManagerTool sendHttpPost:HLXAPI_FORUM_FORUMS prefix:HLXAPI_PREFIX parameters:nil success:^(NSURLSessionDataTask * task, id responseObj) {
         ResponseRootObject* rootObj = [ResponseRootObject mj_objectWithKeyValues:responseObj];
         if ([rootObj.ret isEqualToString:@"0"]) {
-            //            NSLog(@"数据返回成功");
             Forums* model = [Forums mj_objectWithKeyValues:rootObj.data];
             MenuView* view = [[MenuView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64) WithData:model.forums];
             view.choose = _chooseBlock;

@@ -28,5 +28,7 @@
 #define HLXAPI_SIDE_HOT_USER_LIST       @"/v1_4/side/hot-user-list"                 //活跃的人列表
 #define HLXAPI_SIDE_HOT_LIST            @"/v1_4/side/hot-list"                      //热门推荐列表
 #define HLXAPI_VIEW_THREAD              @"http://hualongxiang.qianfanapi.com/v1_4/wap/view-thread?tid=%@&isSeeMaster=0&replyOrder=0&viewpid=0"
+#define HLXAPI_USER_INFORMATION         @"/v1_4/user/information"                   //用户信息
+#define HLXAPI_USER_LIST                @"/v1_4/user/list"                          //用户列表
 
 #endif /* HLXApi_h */

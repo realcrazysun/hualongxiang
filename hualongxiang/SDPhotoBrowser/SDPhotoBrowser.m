@@ -175,9 +175,12 @@
     
     SDBrowserImageView *currentImageView = (SDBrowserImageView *)recognizer.view;
     NSInteger currentIndex = currentImageView.tag;
+   
+    UIView *sourceView = self.sourceImagesContainerView;
+    CGRect targetTemp = CGRectMake(sourceView.center.x, sourceView.center.y, 0, 0);
+//    CGRect targetTemp = [self.sourceImagesContainerView convertRect:sourceView.frame toView:self];
+
     
-    UIView *sourceView = self.sourceImagesContainerView.subviews[currentIndex];
-    CGRect targetTemp = [self.sourceImagesContainerView convertRect:sourceView.frame toView:self];
     
     UIImageView *tempView = [[UIImageView alloc] init];
     tempView.contentMode = sourceView.contentMode;
@@ -274,8 +277,8 @@
 
 - (void)showFirstImage
 {
-    UIView *sourceView = self.sourceImagesContainerView.subviews[self.currentImageIndex];
-    CGRect rect = [self.sourceImagesContainerView convertRect:sourceView.frame toView:self];
+//    UIView *sourceView = self.sourceImagesContainerView.subviews[self.currentImageIndex];
+//    CGRect rect = [self.sourceImagesContainerView convertRect:sourceView.frame toView:self];
     
     UIImageView *tempView = [[UIImageView alloc] init];
     tempView.image = [self placeholderImageForIndex:self.currentImageIndex];
@@ -284,7 +287,7 @@
     
     CGRect targetTemp = [_scrollView.subviews[self.currentImageIndex] bounds];
     
-    tempView.frame = rect;
+//    tempView.frame = rect;
     tempView.contentMode = [_scrollView.subviews[self.currentImageIndex] contentMode];
     _scrollView.hidden = YES;
     

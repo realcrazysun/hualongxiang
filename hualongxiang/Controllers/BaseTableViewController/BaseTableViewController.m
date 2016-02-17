@@ -129,8 +129,8 @@
                                        ResponseRootObject* model = [ResponseRootObject mj_objectWithKeyValues:responseObject];
                                        if (![model.ret isEqualToString:@"0"]) {
                                            NSLog(@"数据返回异常");
-//                                           ShowLoginExpireInfo
-//                                           return ;
+                                           ShowLoginExpireInfo
+                                           return ;
                                        }
                                      
                                        if (refresh) {

@@ -19,13 +19,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x793e;&#x533a;/EditViewController.m"
-            timestampString = "475513510.6782"
+            filePath = "hualongxiang/Views/&#x63a8;&#x8350;/NewPostCell.m"
+            timestampString = "477292016.412426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
-            landmarkName = "-clickTitle"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
+            landmarkName = "-setIconArr:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +35,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x793e;&#x533a;/MenuView.m"
-            timestampString = "475494528.419984"
+            filePath = "hualongxiang/Views/&#x63a8;&#x8350;/NewPostCell.m"
+            timestampString = "477292016.412426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            startingLineNumber = "305"
+            endingLineNumber = "305"
+            landmarkName = "-setIconArr:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -51,13 +51,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x793e;&#x533a;/MenuView.m"
-            timestampString = "475496741.767861"
+            filePath = "hualongxiang/Views/&#x63a8;&#x8350;/NewPostCell.m"
+            timestampString = "477292016.412426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            startingLineNumber = "317"
+            endingLineNumber = "317"
+            landmarkName = "-setIconArr:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -67,13 +67,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x793e;&#x533a;/EditViewController.m"
-            timestampString = "475513510.6782"
+            filePath = "hualongxiang/Views/&#x63a8;&#x8350;/NewPostCell.m"
+            timestampString = "477292016.412426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "-clickRight"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
+            landmarkName = "-initWithFrame:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -83,46 +83,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x793e;&#x533a;/EditViewController.m"
-            timestampString = "475513510.6782"
+            filePath = "hualongxiang/Controllers/&#x7528;&#x6237;&#x4fe1;&#x606f;/UserInfoViewController.m"
+            timestampString = "477314570.038696"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "-clickRight"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[EditViewController clickRight]"
-                  moduleName = "hualongxiang"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/liudalin/Documents/gaochao/hualongxiang/hualongxiang/Controllers/%E7%A4%BE%E5%8C%BA/EditViewController.m"
-                  timestampString = "475513511.087923"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
-                  offsetFromSymbolStart = "1548">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__32-[EditViewController clickRight]_block_invoke"
-                  moduleName = "hualongxiang"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/liudalin/Documents/gaochao/hualongxiang/hualongxiang/Controllers/%E7%A4%BE%E5%8C%BA/EditViewController.m"
-                  timestampString = "475513511.089738"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
-                  offsetFromSymbolStart = "72">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -131,30 +99,40 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x793e;&#x533a;/EditViewController.m"
-            timestampString = "475513510.6782"
+            filePath = "hualongxiang/Controllers/&#x7528;&#x6237;&#x4fe1;&#x606f;/UserInfoViewController.m"
+            timestampString = "477314570.038696"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "-clickRight"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
+            landmarkName = "-initHead"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "hualongxiang/Controllers/&#x5df7;&#x53cb;&#x5708;/&#x56fe;&#x7247;/Control/PhotoViewController.m"
+            timestampString = "477212520.582485"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "-initNavigationBar"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x793e;&#x533a;/EditViewController.m"
-            timestampString = "475513573.572035"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "-clickRight"
-            landmarkType = "5">
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -163,252 +141,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hualongxiang/XHRadarView/XHRadarView.m"
-            timestampString = "475596402.795649"
+            filePath = "hualongxiang/Controllers/&#x7528;&#x6237;&#x4fe1;&#x606f;/UserInfoViewController.m"
+            timestampString = "477314570.038696"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "-scan"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/XHRadarView/XHRadarView.m"
-            timestampString = "475596653.268012"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
-            landmarkName = "-stop"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/XHRadarView/XHRadarView.m"
-            timestampString = "475654573.311432"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "-show"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[XHRadarView show]"
-                  moduleName = "hualongxiang"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/liudalin/Documents/gaochao/hualongxiang/hualongxiang/XHRadarView/XHRadarView.m"
-                  timestampString = "475659282.893739"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "143"
-                  endingLineNumber = "143"
-                  offsetFromSymbolStart = "74">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[XHRadarView show]"
-                  moduleName = "hualongxiang"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/liudalin/Documents/gaochao/hualongxiang/hualongxiang/XHRadarView/XHRadarView.m"
-                  timestampString = "475659282.894123"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "143"
-                  endingLineNumber = "143"
-                  offsetFromSymbolStart = "90">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/Chat/NearByViewController.m"
-            timestampString = "475661869.203621"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
-            landmarkName = "-radarView:viewForIndex:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/Chat/NearByViewController.m"
-            timestampString = "475661869.203621"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
-            landmarkName = "-radarView:viewForIndex:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x5df7;&#x53cb;&#x5708;/DarenViewController.m"
-            timestampString = "475732051.936586"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
-            landmarkName = "-scrollViewDidEndScrollingAnimation:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Views/&#x5df7;&#x53cb;&#x5708;/DaRenTableViewCell.m"
-            timestampString = "475733266.109067"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
-            landmarkName = "-setData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/ReplyView.m"
-            timestampString = "476025706.573841"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "-setLiked:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/DetailInfoViewController.m"
-            timestampString = "476072670.118765"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "-webViewDidFinishLoad:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/DetailInfoViewController.m"
-            timestampString = "476072670.118765"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
-            landmarkName = "-textDidUpdate:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[DetailInfoViewController textDidUpdate:]"
-                  moduleName = "hualongxiang"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/liudalin/Documents/gaochao/hualongxiang/hualongxiang/Controllers/DetailInfoViewController.m"
-                  timestampString = "475816571.062925"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "144"
-                  endingLineNumber = "144"
-                  offsetFromSymbolStart = "92">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[DetailInfoViewController textDidUpdate:]"
-                  moduleName = "hualongxiang"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/liudalin/Documents/gaochao/hualongxiang/hualongxiang/Controllers/DetailInfoViewController.m"
-                  timestampString = "475816571.063314"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "144"
-                  endingLineNumber = "144"
-                  offsetFromSymbolStart = "270">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/DetailInfoViewController.m"
-            timestampString = "476072670.118765"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "-textDidUpdate:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/DetailInfoViewController.m"
-            timestampString = "476072670.118765"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
             landmarkName = "-scrollViewDidScroll:"
             landmarkType = "5">
          </BreakpointContent>
@@ -419,13 +157,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x52a8;&#x6001;/DynamicInfoViewController.m"
-            timestampString = "475938335.016275"
+            filePath = "hualongxiang/Controllers/&#x7528;&#x6237;&#x4fe1;&#x606f;/UserInfoViewController.m"
+            timestampString = "477314570.038696"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "-viewWillAppear:"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
+            landmarkName = "-scrollViewDidScroll:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -435,141 +173,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x52a8;&#x6001;/DynamicInfoViewController.m"
-            timestampString = "475938335.016275"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "-viewDidDisappear:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/DetailInfoViewController.m"
-            timestampString = "476072670.118765"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "-webViewDidFinishLoad:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x52a8;&#x6001;/ActivityInfoController.m"
-            timestampString = "476074884.787215"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/DetailInfoViewController.m"
-            timestampString = "476072670.118765"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
-            landmarkName = "-webViewDidFinishLoad:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/DetailInfoViewController.m"
-            timestampString = "476072670.118765"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/BaseTableViewController/BaseTableViewController.m"
-            timestampString = "476090848.905482"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
-            landmarkName = "-fetchObjects:refresh:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/DetailInfoViewController.m"
-            timestampString = "476072670.118765"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
-            landmarkName = "-webViewDidFinishLoad:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/DetailInfoViewController.m"
-            timestampString = "476072670.118765"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
-            landmarkName = "-backButtonClicked"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/DetailInfoViewController.m"
-            timestampString = "476072670.118765"
+            filePath = "hualongxiang/Controllers/&#x7528;&#x6237;&#x4fe1;&#x606f;/UserInfoViewController.m"
+            timestampString = "477314570.038696"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "131"
             endingLineNumber = "131"
-            landmarkName = "-webView:didFailLoadWithError:"
+            landmarkName = "-initNav"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -579,13 +189,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Tool/Utils.m"
-            timestampString = "476028159.008693"
+            filePath = "hualongxiang/Views/&#x63a8;&#x8350;/NewPostCell.m"
+            timestampString = "477292495.108488"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "348"
-            endingLineNumber = "348"
-            landmarkName = "+getCurrentViewController"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
+            landmarkName = "-updateWithItem:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -595,29 +205,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x52a8;&#x6001;/DynamicInfoViewController.m"
-            timestampString = "476028410.818256"
+            filePath = "hualongxiang/Views/&#x63a8;&#x8350;/NewPostCell.m"
+            timestampString = "477308504.830003"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "-onClickRightMenuButton"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Tool/Utils.m"
-            timestampString = "476028838.871422"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "363"
-            endingLineNumber = "363"
-            landmarkName = "+getCurrentViewController"
+            startingLineNumber = "455"
+            endingLineNumber = "455"
+            landmarkName = "+genCommentAttrString:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -627,13 +221,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x52a8;&#x6001;/HotInfoTableViewController.m"
-            timestampString = "476074581.495156"
+            filePath = "hualongxiang/Views/&#x63a8;&#x8350;/NewPostCell.m"
+            timestampString = "477308504.830003"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "521"
+            endingLineNumber = "521"
+            landmarkName = "-createLinkLabel"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -643,78 +237,46 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Views/DynamicInfoCell/HotInfoTableViewCell.m"
-            timestampString = "476069783.567992"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "-tapView:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Views/DynamicInfoCell/HotInfoTableViewCell.m"
-            timestampString = "476069861.309833"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
-            landmarkName = "-tapView:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x52a8;&#x6001;/HotInfoTableViewController.m"
-            timestampString = "476074581.495156"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x52a8;&#x6001;/NoticInfoTableViewController.m"
-            timestampString = "476074416.650026"
+            filePath = "hualongxiang/Controllers/&#x7528;&#x6237;&#x4fe1;&#x606f;/UserInfoViewController.m"
+            timestampString = "477314570.038696"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "98"
             endingLineNumber = "98"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x793e;&#x533a;/CommunityViewController.m"
-            timestampString = "476078192.975318"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__37-[UserInfoViewController viewDidLoad]_block_invoke_256"
+                  moduleName = "hualongxiang"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liudalin/Documents/gaochao/hualongxiang/hualongxiang/Controllers/%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF/UserInfoViewController.m"
+                  timestampString = "477311779.960869"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
+                  offsetFromSymbolStart = "328">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__37-[UserInfoViewController viewDidLoad]_block_invoke_256"
+                  moduleName = "hualongxiang"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liudalin/Documents/gaochao/hualongxiang/hualongxiang/Controllers/%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF/UserInfoViewController.m"
+                  timestampString = "477311779.961244"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
+                  offsetFromSymbolStart = "346">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -723,110 +285,72 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x793e;&#x533a;/CommunityViewController.m"
-            timestampString = "476078282.250201"
+            filePath = "hualongxiang/Views/UserInfo/UserInfoTableViewCell.m"
+            timestampString = "477311779.831712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "-searchBarShouldBeginEditing:"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "-setModel:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[UserInfoTableViewCell setModel:]"
+                  moduleName = "hualongxiang"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liudalin/Documents/gaochao/hualongxiang/hualongxiang/Views/UserInfo/UserInfoTableViewCell.m"
+                  timestampString = "477312085.697773"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "164"
+                  endingLineNumber = "164"
+                  offsetFromSymbolStart = "894">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[UserInfoTableViewCell setModel:]"
+                  moduleName = "hualongxiang"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liudalin/Documents/gaochao/hualongxiang/hualongxiang/Views/UserInfo/UserInfoTableViewCell.m"
+                  timestampString = "477312085.698163"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "164"
+                  endingLineNumber = "164"
+                  offsetFromSymbolStart = "912">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "hualongxiang/Views/UserInfo/UserInfoTableViewCell.m"
+            timestampString = "477311783.007405"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "-setModel:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x793e;&#x533a;/CommunityHeaderView.m"
-            timestampString = "476085112.281444"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "-load:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x5df7;&#x53cb;&#x5708;/HLXRecommendTableViewController.m"
-            timestampString = "476094688.158939"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x5df7;&#x53cb;&#x5708;/HLXRecommendTableViewController.m"
-            timestampString = "476094688.158939"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "272"
-            endingLineNumber = "272"
-            landmarkName = "-tableView:heightForHeaderInSection:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x5df7;&#x53cb;&#x5708;/&#x56fe;&#x7247;/Control/PhotoViewController.m"
-            timestampString = "476101083.227749"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x5df7;&#x53cb;&#x5708;/&#x56fe;&#x7247;/Control/PhotoViewController.m"
-            timestampString = "476101083.227749"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "@implementation PhotoViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hualongxiang/Controllers/&#x5df7;&#x53cb;&#x5708;/&#x56fe;&#x7247;/Control/PhotoViewController.m"
-            timestampString = "476117165.009013"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "322"
-            endingLineNumber = "322"
-            landmarkName = "-waterflowLayout:heightForWidth:atIndexPath:"
-            landmarkType = "5">
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

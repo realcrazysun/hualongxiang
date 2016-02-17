@@ -14,10 +14,15 @@
 #import <MJRefresh.h>
 #import "Utils.h"
 #import <MBProgressHUD.h>
+#import <objc/runtime.h>
+#import <JavaScriptCore/JavaScriptCore.h>
+#import <WebKit/WebKit.h>
+#import "SDPhotoBrowser.h"
+#import "QF.h"
 #define BottomH  50
 #define BottomViewY (ScreenHeight - BottomH - 64)
 #define EditViewY (ScreenHeight - [self.editView.textView measureHeight] - 64)
-@interface DetailInfoViewController()<UIWebViewDelegate,UIScrollViewDelegate,UITextViewDelegate>
+@interface DetailInfoViewController()<UIWebViewDelegate,UIScrollViewDelegate,UITextViewDelegate,SDPhotoBrowserDelegate>
 {
     BOOL _liked;
     BOOL _showBottom;
@@ -29,6 +34,7 @@
 @property(nonatomic,strong) EditViewWithGrowingText* editView;
 @property(nonatomic,strong) EmojiPageVC* emojiPageVC;
 @property(nonatomic,strong) MBProgressHUD *HUD;
+@property(nonatomic,strong) NSArray *contentImages;
 @end
 
 @implementation DetailInfoViewController
@@ -46,7 +52,7 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
-
+    
     self.navigationItem.title = @"详情";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_arrow_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                                              style:UIBarButtonItemStylePlain
@@ -73,8 +79,6 @@
     if (!_showBottom) {
         return;
     }
-    
-    NSLog(@"%f%f",self.view.frame.size.height,self.view.frame.size.width);
     _replyView = [[ReplyView alloc] initWithFrame:CGRectMake(0, BottomViewY, self.view.frame.size.width, BottomH) liked:_liked replyNums:_replyNums];
     _replyView.clickContainer = ^{
         [weakself.editView.textView becomeFirstResponder];
@@ -108,27 +112,10 @@
 }
 -(void)loadRequest:(NSString*)url{
     _HUD = [Utils createHUD];
-//    _HUD.mode = MBProgressHUDModeCustomView;
+    //    _HUD.mode = MBProgressHUDModeCustomView;
     _HUD.labelText = @"网页加载中";
-    [_HUD hide:YES afterDelay:15];
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15]];
-}
-
-#pragma mark -- webview delegate
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-    NSString* title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-    if ( title && ![title isEqualToString:@""]) {
-        self.navigationItem.title = title;
-    }
-    //点赞
-    NSString* isping = [webView stringByEvaluatingJavaScriptFromString:@"isping"];
-    [_replyView setLiked:[isping isEqualToString:@"1"]];
-    
-    [_webView.scrollView.mj_header endRefreshing];
-    _HUD.hidden = YES;
-}
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error{
-    [_webView.scrollView.mj_header endRefreshing];
+    [_HUD hide:YES afterDelay:10];
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10]];
 }
 
 -(void)clickIcon{
@@ -140,10 +127,15 @@
     } completion:nil];
     
 }
-
+/**
+ *  导航栏右侧按钮点击事件
+ */
 -(void)moreButtonClicked{
     
 }
+/**
+ *  回退按钮点击
+ */
 - (void)backButtonClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -178,7 +170,6 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    //        NSLog(@"---");
     if (scrollView==_editView.textView) {
         return;
     }
@@ -187,32 +178,7 @@
     self.replyView.hidden = NO;
     self.emojiPageVC.view.hidden = YES;
 }
-//-(void)clickWebView{
-//    [self.editView.textView resignFirstResponder];
-//    [self hideEditView];
-//    self.replyView.hidden = NO;
-//}
 
-#pragma mark textview delegate
-- (void)textDidUpdate:(NSNotification *)notification
-{
-    //    //    [self updateInputBarHeight];
-    CGFloat inputbarHeight = [self appropriateInputbarHeight];
-    
-    //
-    
-    if (inputbarHeight != self.editView.frame.size.height) {
-        CGFloat changeHeight = inputbarHeight-self.editView.frame.size.height;
-        CGRect frame =  self.editView.frame;
-        self.editView.frame = CGRectMake(frame.origin.x, frame.origin.y - changeHeight, frame.size.width, inputbarHeight);
-        CGRect textViewFrame =  self.editView.textView.frame;
-        NSLog(@"%f------%f----%f",inputbarHeight,textViewFrame.size.height,self.editView.frame.size.height);
-        self.editView.textView.frame = CGRectMake(textViewFrame.origin.x, textViewFrame.origin.y , textViewFrame.size.width, textViewFrame.size.height+changeHeight);
-        
-        //        [self.view layoutIfNeeded];
-    }
-    
-}
 
 - (CGFloat)appropriateInputbarHeight
 {
@@ -241,6 +207,110 @@
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark -- webview delegate
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    //标题修改
+    NSString* title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    if ( title && ![title isEqualToString:@""]) {
+        self.navigationItem.title = title;
+    }
+    //是否点赞
+    NSString* isping = [webView stringByEvaluatingJavaScriptFromString:@"isping"];
+    [_replyView setLiked:[isping isEqualToString:@"1"]];
+    
+    [_webView.scrollView.mj_header endRefreshing];
+    _HUD.hidden = YES;
+    
+
+    //调整字号
+//    NSString *str = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '95%'";
+//    [webView stringByEvaluatingJavaScriptFromString:str];
+#warning 应该是zepto lazyload 插件捣鬼 懒加载
+    //貌似可以用zepto 图片点击事件处理
+    static  NSString * const jsGetImages =
+    @"function getImages(){\
+    var ret = new Array();\
+    var objs = $(\".content_article\").find(\"img\");\
+    $.each(objs, function(index, item){\
+    QF.callLog(item.getAttribute(\'naturl\'));\
+    ret.push(item.getAttribute(\'naturl\'));\
+    item.onclick=function(){\
+    QF.callLog(this.src);\
+    document.location= \"myweb:imageClick:\"+index+\":\"+this.src;\
+    };\
+    });\
+    return ret;\
+    }";
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        JSContext *context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+        [context evaluateScript:jsGetImages];
+        context.exceptionHandler=^(JSContext *context, JSValue *exception){
+            NSLog(@"JS Error :%@",exception);
+        };
+        //打印日志绑定
+        QF* qf = [[QF alloc] init];
+        context[@"QF"] = qf;
+
+        JSValue* value = [context[@"getImages"] callWithArguments:@[]];
+        //        JSValue* value = [context evaluateScript:@"getImages"];
+        NSArray* array = [value toArray];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _contentImages = array;
+        });
+    });
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    //将url转换为string
+    NSString *requestString = [[request URL] absoluteString];
+//    NSLog(@"%@",requestString);
+    if ([requestString hasPrefix:@"myweb:imageClick:"]) {
+        NSArray* splitArr = [requestString componentsSeparatedByString:@":"];
+        SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
+        browser.currentImageIndex = [(NSString*)splitArr[2] intValue];
+        browser.sourceImagesContainerView = self.webView;
+        browser.imageCount = self.contentImages.count;
+        browser.delegate = self;
+        [browser show];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error{
+    [_webView.scrollView.mj_header endRefreshing];
+}
+
+#pragma mark -- SDPhotoBrowserDelegate
+- (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
+{
+    NSString *imageName = self.contentImages[index];
+    NSURL *url = [NSURL URLWithString:imageName];
+    return url;
+}
+
+- (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
+{
+    return nil;
+}
+#pragma mark textview delegate
+- (void)textDidUpdate:(NSNotification *)notification
+{
+    //    //    [self updateInputBarHeight];
+    CGFloat inputbarHeight = [self appropriateInputbarHeight];
+    
+    if (inputbarHeight != self.editView.frame.size.height) {
+        CGFloat changeHeight = inputbarHeight-self.editView.frame.size.height;
+        CGRect frame =  self.editView.frame;
+        self.editView.frame = CGRectMake(frame.origin.x, frame.origin.y - changeHeight, frame.size.width, inputbarHeight);
+        CGRect textViewFrame =  self.editView.textView.frame;
+        self.editView.textView.frame = CGRectMake(textViewFrame.origin.x, textViewFrame.origin.y , textViewFrame.size.width, textViewFrame.size.height+changeHeight);
+        
+        //        [self.view layoutIfNeeded];
+    }
+    
 }
 
 @end

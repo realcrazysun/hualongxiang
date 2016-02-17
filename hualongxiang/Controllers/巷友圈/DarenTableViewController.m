@@ -11,6 +11,7 @@
 #import "HLXApi.h"
 #import "DaRenModel.h"
 #import "AFHTTPSessionManagerTool.h"
+#import "UserInfoViewController.h"
 static NSString* darenIdentifer = @"darenIdentifer";
 
 @interface DarenTableViewController()
@@ -60,7 +61,7 @@ static NSString* darenIdentifer = @"darenIdentifer";
 
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-   
+    
     DaRenModel* model = self.objects[indexPath.row];
     
     DaRenTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:darenIdentifer];
@@ -70,9 +71,17 @@ static NSString* darenIdentifer = @"darenIdentifer";
         [cell setRankImg:@[@"icon_rank_one",@"icon_rank_two",@"icon_rank_three"][indexPath.row]];
     }else{
         //要加上这句 否则复用会有问题
-       [cell setRankImg:@""];
+        [cell setRankImg:@""];
     }
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    DaRenModel* model = self.objects[indexPath.row];
+    NSUInteger uid = model.user_id;
+    UIStoryboard *userSB = [UIStoryboard storyboardWithName:@"UserInfo" bundle:nil];
+    UserInfoViewController * controller = [userSB instantiateViewControllerWithIdentifier:@"userInfoViewController"];
+    controller.uid = uid;
+    [self.navigationController pushViewController:controller animated:YES];
+}
 @end

@@ -20,7 +20,7 @@
 
 #define CommentLabelLineHeight 1.1f
 
-#define TopMargin 0
+#define TopMargin 10
 #define BottomMargin 6
 
 #define CommentLabelMargin 0
@@ -29,7 +29,7 @@
 
 #define Margin 15
 
-#define  BodyMaxWidth [UIScreen mainScreen].bounds.size.width - UserAvatarSize - 3*Margin
+#define  BodyMaxWidth [UIScreen mainScreen].bounds.size.width - UserAvatarSize - 2*Margin
 
 @interface NewPostCell ()
 {
@@ -93,24 +93,29 @@
     _picContainerView = [SDWeiXinPhotoContainerView new];
     //地址
     _address = [UILabel new];
+    _address.font = [UIFont systemFontOfSize:13];
+    _address.textColor = [UIColor deepSkyBlue];
     //分享按钮
     _shareBtn = [UIButton buttonWithType: UIButtonTypeCustom];
-    [_shareBtn setTitle:[NSString stringWithFormat:@"%@%@",[NSString fontAwesomeIconStringForEnum:FAShare],@" 分享"]forState:UIControlStateNormal];
-    [_shareBtn setBackgroundColor:[UIColor gainsboroColor]];
-    [_shareBtn.titleLabel setFont:[UIFont fontWithName:kFontAwesomeFamilyName size:16]];
-    [_shareBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_shareBtn setBackgroundImage:[UIImage imageNamed:@"btn_share"] forState:UIControlStateNormal];
+    //    [_shareBtn setTitle:[NSString stringWithFormat:@"%@%@",[NSString fontAwesomeIconStringForEnum:FAShare],@" 分享"]forState:UIControlStateNormal];
+    //    [_shareBtn setBackgroundColor:[UIColor gainsboroColor]];
+    //    [_shareBtn.titleLabel setFont:[UIFont fontWithName:kFontAwesomeFamilyName size:16]];
+    //    [_shareBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     //点赞按钮
     _likeBtn = [UIButton buttonWithType: UIButtonTypeCustom];
-    [_likeBtn setTitle:[NSString stringWithFormat:@"%@%@",[NSString fontAwesomeIconStringForEnum:FAThumbsOUp],@"  赞"] forState:UIControlStateNormal];
-    [_likeBtn setBackgroundColor:[UIColor gainsboroColor]];
-    [_likeBtn.titleLabel setFont:[UIFont fontWithName:kFontAwesomeFamilyName size:16]];
-    [_likeBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_likeBtn setBackgroundImage:[UIImage imageNamed:@"btn_zan_normal"] forState:UIControlStateNormal];
+    //    [_likeBtn setTitle:[NSString stringWithFormat:@"%@%@",[NSString fontAwesomeIconStringForEnum:FAThumbsOUp],@"  赞"] forState:UIControlStateNormal];
+    //    [_likeBtn setBackgroundColor:[UIColor gainsboroColor]];
+    //    [_likeBtn.titleLabel setFont:[UIFont fontWithName:kFontAwesomeFamilyName size:16]];
+    //    [_likeBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     //评论按钮
     _commentBtn = [UIButton buttonWithType: UIButtonTypeCustom];
-    [_commentBtn setTitle:[NSString stringWithFormat:@"%@%@",[NSString fontAwesomeIconStringForEnum:FACommentsO],@" 评论"] forState:UIControlStateNormal];
-    [_commentBtn.titleLabel setFont:[UIFont fontWithName:kFontAwesomeFamilyName size:16]];
-    [_commentBtn setBackgroundColor:[UIColor gainsboroColor]];
-    [_commentBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_commentBtn setBackgroundImage:[UIImage imageNamed:@"btn_pinglun_normal" ] forState:UIControlStateNormal];
+    //    [_commentBtn setTitle:[NSString stringWithFormat:@"%@%@",[NSString fontAwesomeIconStringForEnum:FACommentsO],@" 评论"] forState:UIControlStateNormal];
+    //    [_commentBtn.titleLabel setFont:[UIFont fontWithName:kFontAwesomeFamilyName size:16]];
+    //    [_commentBtn setBackgroundColor:[UIColor gainsboroColor]];
+    //    [_commentBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     //点赞头像列表
     _likeListContainer = [UserIconContainerView new];
     //    _likeListContainer.backgroundColor = [UIColor redColor];
@@ -143,7 +148,7 @@
     //    [_nameLable setSingleLineAutoResizeWithMaxWidth:250];
     
     _genderView.sd_layout
-    .leftSpaceToView(_nameLable,margin)
+    .leftSpaceToView(_nameLable,3)
     .centerYEqualToView(_nameLable)
     .heightIs(18)
     .widthIs(18);
@@ -156,7 +161,7 @@
     
     _timeLabel.sd_layout
     .leftEqualToView(_nameLable)
-    .topSpaceToView(_nameLable,3)
+    .topSpaceToView(_nameLable,5)
     .heightIs(16)
     .autoHeightRatio(0);
     
@@ -180,16 +185,14 @@
     
     _address.sd_layout
     .leftEqualToView(_picContainerView)
-    .topSpaceToView(_picContainerView,0)
-    .heightIs(16)
-    .autoHeightRatio(0);
+    .topSpaceToView(_picContainerView,0);
     [_address setSingleLineAutoResizeWithMaxWidth:150];
     
     _shareBtn.sd_layout
     .leftEqualToView(_address)
     .topSpaceToView(_address,margin)
     .heightIs(25)
-    .widthIs(70);
+    .widthIs(64);
     [_shareBtn setCornerRadius:2];
     
     
@@ -197,26 +200,26 @@
     .rightSpaceToView(contentView,margin)
     .topEqualToView(_shareBtn)
     .heightIs(25)
-    .widthIs(70);
+    .widthIs(64);
     [_commentBtn setCornerRadius:2];
     
     _likeBtn.sd_layout
     .rightSpaceToView(_commentBtn,20)
     .topEqualToView(_shareBtn)
     .heightIs(25)
-    .widthIs(70);
+    .widthIs(64);
     [_likeBtn setCornerRadius:2];
     
     _likeListContainer.sd_layout
     .leftEqualToView(_shareBtn)
-    .topSpaceToView(_shareBtn,0);
+    .topSpaceToView(_shareBtn,5);
     
     _commentListContainer.sd_layout
     .leftEqualToView(_likeListContainer)
     .topSpaceToView(_likeListContainer,0)
     .widthIs(BodyMaxWidth);
     
-    [self setupAutoHeightWithBottomView:_commentListContainer bottomMargin:margin + 5];
+    [self setupAutoHeightWithBottomView:_commentListContainer bottomMargin:margin ];
     
     
 }
@@ -236,19 +239,29 @@
     [_iconView loadPortraitWithNSString:model.avatar];
     _nameLable.text = model.nickname;
     _contentLabel.text = model.content;
+    if ([model.gender isEqualToString:@"0"]) {
+        _genderView.image = [UIImage imageNamed:@"userinfo_gender_female"];
+        
+    }else{
+        _genderView.image = [UIImage imageNamed:@"userinfo_gender_male"];
+    }
+    
     _timeLabel.text = model.created_at;
     _picContainerView.picPathStringsArray = model.attaches;
     _address.text = model.address;
-    CGFloat likeHeight = 36;
-    if (model.likes == 0) {
-        likeHeight = 5;
+    
+    if ([model.address isEqualToString:@""]) {
+        _address.sd_layout.heightIs(0);
+    }else{
+        _address.sd_layout.heightIs(16);
     }
+    CGFloat likeHeight = [UserIconContainerView getHeight:model.likes];
     _likeListContainer.sd_layout.heightIs(likeHeight);
     [_likeListContainer setIconArr:model.likes];
     
     NSArray* array = model.replies;
     CGFloat height = [CommentView getHeight:array maxWidth:BodyMaxWidth];
-
+    
     [_commentListContainer updateWithItem:array];
     _commentListContainer.sd_layout.heightIs(height);
     
@@ -263,7 +276,9 @@
     //    _timeLabel.text = @"1分钟前";
 }
 
-
+-(void)setCommentViewDelegate:(id<CommentViewDelegate>) delegate{
+    _commentListContainer.delegate = delegate;
+}
 
 @end
 
@@ -275,16 +290,18 @@
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     if (_iconArr.count == 0) {
-        self.height = 5;
-        self.fixedHeight = @(5);
+        self.height = 0;
+        self.fixedHeight = @(0);
         return;
     }
     
     CGFloat itemWH = 20;
-    CGFloat margin = 8;
+    CGFloat margin = 5;
     
-    [_iconArr enumerateObjectsUsingBlock:^(NSDictionary *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
+    [_iconArr enumerateObjectsUsingBlock:^(NSDictionary *  _Nonnull obj, NSUInteger idx, BOOL *  stop) {
+        if (idx>=7) {
+            *stop = YES;
+        }
         UIImageView *imageView = [UIImageView new];
         [imageView loadPortraitWithNSString:[obj objectForKey:@"avatar"]];
         imageView.frame = CGRectMake(idx * (itemWH + margin), margin, itemWH, itemWH);
@@ -297,13 +314,20 @@
         [imageView addGestureRecognizer:tap];
     }];
     
-    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake((itemWH + margin)*_iconArr.count, margin,40, 20)];
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake((itemWH + margin)*(_iconArr.count>8?8:_iconArr.count), margin,40, 20)];
     label.text = [NSString stringWithFormat:@"%d 赞" , _iconArr.count];
     label.font = [UIFont systemFontOfSize:13];
     label.textColor = [UIColor lightGrayColor];
     [self addSubview:label];
     
-    self.fixedHeight = @(itemWH + margin*2);
+    self.fixedHeight = @(itemWH + margin);
+}
+
++(CGFloat)getHeight:(NSArray *)iconArr{
+    if (iconArr.count>0) {
+        return 25;
+    }
+    return 0;
 }
 
 - (void)tapImageView:(UITapGestureRecognizer *)tap
@@ -320,7 +344,9 @@
 
 
 @end
-
+@interface CommentView()
+@property(nonatomic,strong)UIView* sepLineView;
+@end
 @implementation CommentView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -329,12 +355,27 @@
     if (self) {
         
         _commentLabels = [NSMutableArray array];
+        _sepLineView = [UIView new] ;
+        _sepLineView.backgroundColor = [UIColor silverColor];
+        _sepLineView.alpha = 0.5;
+        _sepLineView.hidden = YES;
+        [self addSubview:_sepLineView];
     }
     return self;
 }
 
 -(void)updateWithItem:(NSArray*)array
 {
+    
+    if (array.count>0) {
+        _sepLineView.frame = CGRectMake(0, 8, self.frame.size.width, 1);
+        _sepLineView.hidden = NO;
+        
+    }else{
+        _sepLineView.hidden = YES;
+    }
+    
+    
     CGFloat x, y, width, height;
     CGFloat sumHeight = TopMargin;
     if (array.count > 0) {
@@ -392,7 +433,7 @@
     self.fixedHeight =[NSNumber numberWithFloat: [CommentView getHeight:array maxWidth:BodyMaxWidth]] ;
     self.height = [CommentView getHeight:array maxWidth:BodyMaxWidth];
     [self layoutSubviews];
-//    NSLog(@"fixedHeight---%f",[self.fixedHeight floatValue]);
+    //    NSLog(@"fixedHeight---%f",[self.fixedHeight floatValue]);
 }
 
 +(NSMutableArray*) genCommentAttrString:(NSArray *)comments
@@ -411,15 +452,14 @@
         
         NSMutableAttributedString *commentStr = [[NSMutableAttributedString alloc]initWithString:resultStr];
         if ([comment.reply_user_id isEqual:@"0" ]) {
-            [commentStr addAttribute:NSLinkAttributeName value:[NSString stringWithFormat:@"%lu", (unsigned long)comment.user_id] range:NSMakeRange(0, comment.nickname.length)];
+            [commentStr addAttribute:NSLinkAttributeName value:[NSString stringWithFormat:@"%@", comment.user_id] range:NSMakeRange(0, comment.nickname.length)];
         }else{
             NSUInteger localPos = 0;
-            [commentStr addAttribute:NSLinkAttributeName value:[NSString stringWithFormat:@"%lu", (unsigned long)comment.user_id] range:NSMakeRange(localPos, comment.nickname.length)];
+            [commentStr addAttribute:NSLinkAttributeName value:[NSString stringWithFormat:@"%@", comment.user_id] range:NSMakeRange(localPos, comment.nickname.length)];
             localPos += comment.nickname.length + 2;
-            [commentStr addAttribute:NSLinkAttributeName value:[NSString stringWithFormat:@"%lu", (unsigned long)comment.reply_user_id] range:NSMakeRange(localPos, comment.reply_nickname.length)];
+            [commentStr addAttribute:NSLinkAttributeName value:[NSString stringWithFormat:@"%@", comment.reply_user_id] range:NSMakeRange(localPos, comment.reply_nickname.length)];
         }
         
-//        NSLog(@"ffff: %@", resultStr);
         [commentStrArray addObject:commentStr];
     }
     
@@ -428,6 +468,10 @@
 
 +(CGFloat)getHeight:(NSArray *)array maxWidth:(CGFloat)maxWidth
 {
+    if (array.count == 0) {
+        return 0;
+    }
+    
     CGFloat height = TopMargin;
     
     if (array.count > 0) {
@@ -468,16 +512,16 @@
     lable.lineHeightMultiple = CommentLabelLineHeight;
     //    lable.linkTextAttributes = @{NSForegroundColorAttributeName: HighLightTextColor};
     
-    //    __block DFLikeCommentView *likeCommentView = self;
-    //
-    //    [lable setDidClickLinkBlock:^(MLLink *link, NSString *linkText, MLLinkLabel *label) {
-    //
-    //        if (_delegate != nil && [_delegate respondsToSelector:@selector(onClickUser:)]) {
-    //
-    //            NSUInteger userId = [link.linkValue integerValue];
-    //            [likeCommentView.delegate onClickUser:userId];
-    //        }
-    //    }];
+    __block CommentView *blockself = self;
+    
+    [lable setDidClickLinkBlock:^(MLLink *link, NSString *linkText, MLLinkLabel *label) {
+        
+        if (_delegate != nil && [_delegate respondsToSelector:@selector(clickLabel:)]) {
+            
+            NSUInteger userId = [link.linkValue integerValue];
+            [blockself.delegate clickLabel:userId];
+        }
+    }];
     
     
     return lable;
@@ -487,3 +531,4 @@
 
 
 @end
+

@@ -99,7 +99,6 @@
     //block代码块动画
     [UIView transitionWithView:self.labelSelectView.indicatorView duration:0.5 options:0 animations:^{
         //执行的动画
-        //        NSLog(@"动画开始执行前的位置：%@",NSStringFromCGPoint(self.labelSelectView.indicatorView.center));
         self.labelSelectView.indicatorView.center = point;
         
     } completion:^(BOOL finished) {
