@@ -19,6 +19,7 @@
 #import <WebKit/WebKit.h>
 #import "SDPhotoBrowser.h"
 #import "QF.h"
+#import "UserInfoViewController.h"
 #define BottomH  50
 #define BottomViewY (ScreenHeight - BottomH - 64)
 #define EditViewY (ScreenHeight - [self.editView.textView measureHeight] - 64)
@@ -223,12 +224,52 @@
     [_webView.scrollView.mj_header endRefreshing];
     _HUD.hidden = YES;
     
+    [self addMainContentImgEvent];
 
+    [self addUserIconEvent];
+    
     //调整字号
 //    NSString *str = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '95%'";
 //    [webView stringByEvaluatingJavaScriptFromString:str];
-#warning 应该是zepto lazyload 插件捣鬼 懒加载
+#warning 应该是zepto lazyload 插件捣鬼 懒加载 大图  naturl 属性取出 放至 _contentImages
     //貌似可以用zepto 图片点击事件处理
+//    static  NSString * const jsGetImages =
+//    @"function getImages(){\
+//    var ret = new Array();\
+//    var objs = $(\".content_article\").find(\"img\");\
+//    $.each(objs, function(index, item){\
+//    QF.callLog(item.getAttribute(\'naturl\'));\
+//    ret.push(item.getAttribute(\'naturl\'));\
+//    item.onclick=function(){\
+//    QF.callLog(this.src);\
+//    document.location= \"myweb:imageClick:\"+index+\":\"+this.src;\
+//    };\
+//    });\
+//    return ret;\
+//    }";
+//    //绑定图片点击事件
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        
+//        JSContext *context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+//        [context evaluateScript:jsGetImages];
+//        context.exceptionHandler=^(JSContext *context, JSValue *exception){
+//            NSLog(@"JS Error :%@",exception);
+//        };
+//        //打印日志绑定
+//        QF* qf = [[QF alloc] init];
+//        context[@"QF"] = qf;
+//
+//        JSValue* value = [context[@"getImages"] callWithArguments:@[]];
+//        //        JSValue* value = [context evaluateScript:@"getImages"];
+//        NSArray* array = [value toArray];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            _contentImages = array;
+//        });
+//    });
+}
+
+//内容图片点击事件
+-(void)addMainContentImgEvent{
     static  NSString * const jsGetImages =
     @"function getImages(){\
     var ret = new Array();\
@@ -243,8 +284,10 @@
     });\
     return ret;\
     }";
+    //绑定图片点击事件
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        JSContext *context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+        
+        JSContext *context = [self.webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
         [context evaluateScript:jsGetImages];
         context.exceptionHandler=^(JSContext *context, JSValue *exception){
             NSLog(@"JS Error :%@",exception);
@@ -252,7 +295,7 @@
         //打印日志绑定
         QF* qf = [[QF alloc] init];
         context[@"QF"] = qf;
-
+        
         JSValue* value = [context[@"getImages"] callWithArguments:@[]];
         //        JSValue* value = [context evaluateScript:@"getImages"];
         NSArray* array = [value toArray];
@@ -260,8 +303,40 @@
             _contentImages = array;
         });
     });
-}
 
+}
+- (void)addUserIconEvent{
+    static  NSString * const jsGetUserIcon =
+    @"function jsGetUserIcon(){\
+    var objs = $(\"a\");\
+    $.each(objs, function(index, item){\
+    QF.callLog(item.dataset.uid);\
+    if(!item.dataset.uid){\
+    }else{\
+    item.onclick=function(){\
+    document.location= \"myweb:userIconClick:\"+item.dataset.uid;\
+    }};\
+    });\
+    }";
+    //绑定图片点击事件
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        JSContext *context = [self.webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+        [context evaluateScript:jsGetUserIcon];
+        context.exceptionHandler=^(JSContext *context, JSValue *exception){
+            NSLog(@"JS Error :%@",exception);
+        };
+        //打印日志绑定
+        QF* qf = [[QF alloc] init];
+        context[@"QF"] = qf;
+        
+        JSValue* value = [context[@"jsGetUserIcon"] callWithArguments:@[]];
+//        NSArray* array = [value toArray];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//        });
+    });
+
+}
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     //将url转换为string
     NSString *requestString = [[request URL] absoluteString];
@@ -275,6 +350,15 @@
         browser.delegate = self;
         [browser show];
         return NO;
+        
+    }else if([requestString hasPrefix:@"myweb:userIconClick:"]){
+        
+        NSArray* splitArr = [requestString componentsSeparatedByString:@":"];
+        UIStoryboard *userSB = [UIStoryboard storyboardWithName:@"UserInfo" bundle:nil];
+        UserInfoViewController * controller = [userSB instantiateViewControllerWithIdentifier:@"userInfoViewController"];
+        controller.uid = [(NSString*)splitArr[2] intValue];;
+        [self.navigationController pushViewController:controller animated:YES];
+        
     }
     return YES;
 }

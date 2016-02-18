@@ -27,6 +27,9 @@
 #import "WEPopoverViewController.h"
 #import "WEPopoverContentViewController.h"
 #import <WEPopoverController.h>
+
+#define itemArr  @[@"今日热门 ",@"本周热门",@"本月热门"]
+
 @interface PhotoViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,HMWaterflowLayoutDelegate>
 @property(nonatomic,assign) int pageNum;
 @property (nonatomic , weak)    UICollectionView *collectionView;
@@ -99,7 +102,7 @@ static NSString *const ID = @"photo";
     
     if (!self.popoverController) {
         
-        WEPopoverContentViewController *contentViewController = [[WEPopoverContentViewController alloc] initWithStyle:UITableViewStylePlain currentType:_type];
+        WEPopoverContentViewController *contentViewController = [[WEPopoverContentViewController alloc] initWithStyle:UITableViewStylePlain currentType:_type typeArray:itemArr];
         typeof(self) __weak weakself = self;
         contentViewController.clickItem = ^(NSString* item){
             [weakself.titleBtn setTitle: [NSString stringWithFormat:@"%@ ▿" ,item] forState:UIControlStateNormal];

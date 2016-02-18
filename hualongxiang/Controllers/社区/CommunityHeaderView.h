@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger, CommunityType) {
 @property (strong, nonatomic) IBOutlet UIView *indicatorView;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UILabel *time;
+@property (strong, nonatomic) IBOutlet UIButton *chooseBtn;
 
 @property (strong, nonatomic)  UIPageControl *pageControl;
 -(void)initData:(NSArray*)attention recommend:(NSArray*)recommend lastRefreshTime:(NSString*)lastRefreshTime;

@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-#define itemArr  @[@"今日热门 ",@"本周热门",@"本月热门"]
+
 @interface WEPopoverContentViewController : UITableViewController
 @property(nonatomic,strong)void (^clickItem)(NSString* type);
-- (instancetype)initWithStyle:(UITableViewStyle)style currentType:(NSUInteger)currentType;
+- (instancetype)initWithStyle:(UITableViewStyle)style currentType:(NSUInteger)currentTypeIndex typeArray:(NSArray*)typeArray;
 @end

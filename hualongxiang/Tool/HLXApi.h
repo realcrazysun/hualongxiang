@@ -30,5 +30,6 @@
 #define HLXAPI_VIEW_THREAD              @"http://hualongxiang.qianfanapi.com/v1_4/wap/view-thread?tid=%@&isSeeMaster=0&replyOrder=0&viewpid=0"
 #define HLXAPI_USER_INFORMATION         @"/v1_4/user/information"                   //用户信息
 #define HLXAPI_USER_LIST                @"/v1_4/user/list"                          //用户列表
+#define HLXAPI_FORUM_GETHOTTHREADS                @"/v1_4/forum/get-hot-threads"                          //热门消息
 
 #endif /* HLXApi_h */

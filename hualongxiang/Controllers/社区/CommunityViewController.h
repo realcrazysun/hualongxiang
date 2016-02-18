@@ -7,7 +7,11 @@
 //
 
 #import "BaseTableViewController.h"
-
+typedef NS_ENUM(NSUInteger,PhotoType) {
+    TwentyFourHour = 0,
+    LatestPost,
+    LatestReply
+};
 @interface CommunityViewController : BaseTableViewController
 
 @end

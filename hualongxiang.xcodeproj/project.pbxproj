@@ -114,6 +114,8 @@
 		A79881AD1C7198F100E8B77D /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A79881AC1C7198F100E8B77D /* UserInfo.m */; };
 		A79881B11C73163400E8B77D /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A79881B01C73163400E8B77D /* UserInfoTableViewCell.m */; };
 		A79881B41C731D7200E8B77D /* UserInfoCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A79881B31C731D7200E8B77D /* UserInfoCellModel.m */; };
+		A79881BA1C7563E100E8B77D /* CellWithNoPicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A79881B91C7563E000E8B77D /* CellWithNoPicTableViewCell.m */; };
+		A79881BD1C7576A400E8B77D /* HotThread.m in Sources */ = {isa = PBXBuildFile; fileRef = A79881BC1C7576A400E8B77D /* HotThread.m */; };
 		A7B82D7C1C48DE3300FFF6E1 /* CommuityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B82D7B1C48DE3300FFF6E1 /* CommuityModel.m */; };
 		A7C99A791C51F1C0000F080F /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C99A781C51F1C0000F080F /* SearchViewController.m */; };
 		A7D1B98D1C49F5BD0074171E /* HLXFriendCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7D1B98C1C49F5BD0074171E /* HLXFriendCircleViewController.m */; };
@@ -438,6 +440,10 @@
 		A79881B01C73163400E8B77D /* UserInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewCell.m; sourceTree = "<group>"; };
 		A79881B21C731D7200E8B77D /* UserInfoCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoCellModel.h; sourceTree = "<group>"; };
 		A79881B31C731D7200E8B77D /* UserInfoCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoCellModel.m; sourceTree = "<group>"; };
+		A79881B81C7563E000E8B77D /* CellWithNoPicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellWithNoPicTableViewCell.h; sourceTree = "<group>"; };
+		A79881B91C7563E000E8B77D /* CellWithNoPicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellWithNoPicTableViewCell.m; sourceTree = "<group>"; };
+		A79881BB1C7576A400E8B77D /* HotThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotThread.h; sourceTree = "<group>"; };
+		A79881BC1C7576A400E8B77D /* HotThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotThread.m; sourceTree = "<group>"; };
 		A7B82D7A1C48DE3300FFF6E1 /* CommuityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommuityModel.h; sourceTree = "<group>"; };
 		A7B82D7B1C48DE3300FFF6E1 /* CommuityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommuityModel.m; sourceTree = "<group>"; };
 		A7C99A771C51F1C0000F080F /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
@@ -1156,6 +1162,8 @@
 				A7B82D7B1C48DE3300FFF6E1 /* CommuityModel.m */,
 				A7E85EEA1C54C88400D3F291 /* Forum.h */,
 				A7E85EEB1C54C88400D3F291 /* Forum.m */,
+				A79881BB1C7576A400E8B77D /* HotThread.h */,
+				A79881BC1C7576A400E8B77D /* HotThread.m */,
 			);
 			path = "社区";
 			sourceTree = "<group>";
@@ -1439,6 +1447,8 @@
 				A7D1B9981C4A6B1B0074171E /* 巷友圈 */,
 				A794FE2C1C44C765007251A7 /* DynamicInfoCell */,
 				A78110DB1C42A99800EFFF03 /* DiscoverViewCell */,
+				A79881B81C7563E000E8B77D /* CellWithNoPicTableViewCell.h */,
+				A79881B91C7563E000E8B77D /* CellWithNoPicTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1811,6 +1821,7 @@
 				A7D6546B1C4D23130060FBF3 /* NewPostCell.m in Sources */,
 				A794FE381C453FD2007251A7 /* DynamicInfoCellAD.m in Sources */,
 				A79881B11C73163400E8B77D /* UserInfoTableViewCell.m in Sources */,
+				A79881BD1C7576A400E8B77D /* HotThread.m in Sources */,
 				A781113B1C43AEBB00EFFF03 /* DynamicInfoViewController.m in Sources */,
 				A73D484E1C51CC760022D4D5 /* ScanViewController.m in Sources */,
 				A78110D91C42A6F200EFFF03 /* UIColor+Wonderful.m in Sources */,
@@ -1862,6 +1873,7 @@
 				A78111131C4335F700EFFF03 /* NSDateFormatter+Singleton.m in Sources */,
 				A78110C61C42A00200EFFF03 /* BaseNavigationViewController.m in Sources */,
 				A7D1B9901C4A1AFC0074171E /* HLXTopicTableViewController.m in Sources */,
+				A79881BA1C7563E100E8B77D /* CellWithNoPicTableViewCell.m in Sources */,
 				A78111161C4335F700EFFF03 /* NSTextAttachment+Util.m in Sources */,
 				A7D656151C4E86800060FBF3 /* MLLinkClickLabel.m in Sources */,
 				A79881B41C731D7200E8B77D /* UserInfoCellModel.m in Sources */,

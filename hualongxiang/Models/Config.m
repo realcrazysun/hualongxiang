@@ -79,7 +79,7 @@ NSString * const kSearchHistory = @"searchHistory";
     User *user = [User new];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     user.username = [userDefaults objectForKey:kUsername];
-    if ([user.username isEqualToString:@""]) {
+    if (!user.username || [user.username isEqualToString:@""]) {
         return nil;
     }
     user.login_token = [userDefaults objectForKey:kLogin_token] ;

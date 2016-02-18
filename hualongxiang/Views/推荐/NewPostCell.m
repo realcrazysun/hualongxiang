@@ -428,8 +428,6 @@
         }
         
     }
-    
-    
     self.fixedHeight =[NSNumber numberWithFloat: [CommentView getHeight:array maxWidth:BodyMaxWidth]] ;
     self.height = [CommentView getHeight:array maxWidth:BodyMaxWidth];
     [self layoutSubviews];

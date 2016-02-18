@@ -47,7 +47,8 @@ static NSString* cellId = @"cellId";
 @property (strong, nonatomic) IBOutlet UIImageView *headIcon;
 
 @property (nonatomic, assign) CGFloat lastOffsetY;
-
+@property(nonatomic,strong)UILabel* navNameTitle;
+@property(nonatomic,strong)UIImageView* navGender;
 @end
 @implementation UserInfoViewController
 //-(instancetype)initWithUid:(NSUInteger)uid{
@@ -60,8 +61,10 @@ static NSString* cellId = @"cellId";
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-     _lastOffsetY = -(headHeight);
+    _lastOffsetY = -(headHeight);
     _data = [NSMutableArray new];
+    
+    [self initNav];
     
     NSMutableDictionary* parameters = [AFHTTPSessionManagerTool defaultParameters];
     NSMutableDictionary* data = [[NSMutableDictionary alloc] init];
@@ -75,7 +78,7 @@ static NSString* cellId = @"cellId";
         if (obj && [obj.ret isEqualToString:@"0"]) {
             _userInfo = [UserInfo mj_objectWithKeyValues:obj.data];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self initNav];
+                [self setNavData];
                 [self initHead];
             });
             
@@ -83,7 +86,7 @@ static NSString* cellId = @"cellId";
     } failure:^(NSURLSessionDataTask * task, NSError * error ) {
         //
     }];
-   
+    
     
     NSMutableDictionary* parameters2 = [AFHTTPSessionManagerTool defaultParameters];
     NSMutableDictionary* data2 = [[NSMutableDictionary alloc] init];
@@ -91,7 +94,7 @@ static NSString* cellId = @"cellId";
     [params2 setObject:[NSNumber numberWithInt:_uid] forKey:@"uid"];
     [data2 setObject:params2 forKey:@"params"];
     [parameters2 setObject:[data2 mj_JSONString] forKey:@"data"];
-
+    
     [AFHTTPSessionManagerTool sendHttpPost:HLXAPI_USER_LIST prefix:HLXAPI_PREFIX parameters:parameters2 success:^(NSURLSessionDataTask * task, id responseObj) {
         ResponseRootObject* obj = [ResponseRootObject mj_objectWithKeyValues:responseObj];
         if (obj && [obj.ret isEqualToString:@"0"]) {
@@ -107,15 +110,14 @@ static NSString* cellId = @"cellId";
     } failure:^(NSURLSessionDataTask * task, NSError * error ) {
         //
     }];
-
+    
     
 }
 
 -(void)initNav{
-  
-    UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 64)];
-    [bar setBackgroundImage:[UIImage imageNamed:@"bigShadow.png"] forBarMetrics:UIBarMetricsCompact];
-    bar.layer.masksToBounds = YES;
+    _navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 64)];
+    [_navBar setBackgroundImage:[UIImage imageNamed:@"bigShadow.png"] forBarMetrics:UIBarMetricsCompact];
+    _navBar.layer.masksToBounds = YES;
     
     UIBarButtonItem* back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_arrow_left"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     UINavigationItem *item = [[UINavigationItem alloc] initWithTitle:@""];
@@ -126,28 +128,39 @@ static NSString* cellId = @"cellId";
     label.frame = CGRectMake(0, 0, 80, 44);
     label.textAlignment = NSTextAlignmentRight;
     label.font = [UIFont systemFontOfSize:18];
-    label.textColor = [UIColor blackColor];
-    label.text = _userInfo.username;
+    label.textColor = [UIColor whiteColor];
+    //    label.text = _userInfo.username;
     [titleView addSubview:label];
-    
+    _navNameTitle = label;
     UIImageView* genderView = [UIImageView new];
     genderView.frame =  CGRectMake(CGRectGetMaxX(label.frame)+2, CGRectGetMaxY(label.frame) - 35, 20 , 20);
     
-    if (_userInfo.gender == 0) {
-        genderView.image = [UIImage imageNamed:@"userinfo_gender_female"];
-        
-    }else{
-        genderView.image = [UIImage imageNamed:@"userinfo_gender_male"];
-    }
+    //    if (_userInfo.gender == 0) {
+    //        genderView.image = [UIImage imageNamed:@"userinfo_gender_female"];
+    //
+    //    }else{
+    //        genderView.image = [UIImage imageNamed:@"userinfo_gender_male"];
+    //    }
     [titleView addSubview:genderView];
-    
+    _navGender = genderView;
     [item setTitleView:titleView];
     
-    [bar pushNavigationItem:item animated:NO];
-    [self.view bringSubviewToFront:bar];
-    _navBar = bar;
-    [self.view addSubview:bar];
+    [_navBar pushNavigationItem:item animated:NO];
+    [self.view bringSubviewToFront:_navBar];
+    [self.view addSubview:_navBar];
+    
+    
+}
 
+-(void)setNavData{
+    _navNameTitle.text = _userInfo.username;
+    
+    if (_userInfo.gender == 0) {
+        _navGender.image = [UIImage imageNamed:@"userinfo_gender_female"];
+        
+    }else{
+        _navGender.image = [UIImage imageNamed:@"userinfo_gender_male"];
+    }
     
 }
 
@@ -166,7 +179,7 @@ static NSString* cellId = @"cellId";
 }
 
 -(void)initHead{
-//    [_headBg setCornerRadius:_headBg.frame.size.width/2];
+    //    [_headBg setCornerRadius:_headBg.frame.size.width/2];
     NSLog(@"%@",[NSString stringWithFormat:@"bg_%u",_userInfo.cover]);
     _headBg.image = [UIImage imageNamed:[NSString stringWithFormat:@"bg_%u",_userInfo.cover]];
     [_headIcon loadPortraitWithNSString:_userInfo.avatar];
@@ -178,11 +191,11 @@ static NSString* cellId = @"cellId";
 
 -(void)initTableView{
     [self.contentTableView registerClass:[UserInfoTableViewCell class] forCellReuseIdentifier:cellId];
-
+    
     self.contentTableView.contentInset = UIEdgeInsetsMake(headHeight , 0, 0, 0);
     self.contentTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.contentTableView.backgroundColor = [UIColor whiteColor];
-//    self.automaticallyAdjustsScrollViewInsets = NO;
+    //    self.automaticallyAdjustsScrollViewInsets = NO;
     self.contentTableView.delegate = self;
     self.contentTableView.dataSource = self;
 }
@@ -204,16 +217,21 @@ static NSString* cellId = @"cellId";
     _headH.constant = height;
     
     // 设置导航条的背景图片
-    CGFloat alpha = delta / (headHeight);
+    CGFloat alpha = (delta+headMinH) / (headHeight);
     NSLog(@"delta%f",delta);
     // 当alpha大于1，导航条半透明，因此做处理，大于1，就直接=0.99
-    if (alpha >= 1) {
+    if (alpha >= 0.99) {
         [_navBar setBarTintColor:[UIColor deepSkyBlue]];
+        [_navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsCompact];
+        _navBar.layer.masksToBounds = NO;
+        
     }else{
-        _navBar.backgroundColor = [UIColor clearColor];
+        [_navBar setBackgroundImage:[UIImage imageNamed:@"bigShadow.png"] forBarMetrics:UIBarMetricsCompact];
+        _navBar.layer.masksToBounds = YES;
+        [_navBar setBarTintColor:[UIColor clearColor]];
     }
-//    _navalpha = alpha;
-//    _navBar.alpha = alpha;
+    //    _navalpha = alpha;
+    //    _navBar.alpha = alpha;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -229,16 +247,16 @@ static NSString* cellId = @"cellId";
     [cell setModel:_data[indexPath.row]];
     
     return cell;
-
+    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//        UITableView* view = [UITableView new]
-//        CGFloat h = [self cellHeightForIndexPath:indexPath cellContentViewWidth:[UIScreen mainScreen].bounds.size.width];
+    //        UITableView* view = [UITableView new]
+    //        CGFloat h = [self cellHeightForIndexPath:indexPath cellContentViewWidth:[UIScreen mainScreen].bounds.size.width];
     UserInfoCellModel* model = _data[indexPath.row];
-        return [self.contentTableView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[UserInfoTableViewCell class] contentViewWidth:[self cellContentViewWith]];
-
-
+    return [self.contentTableView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[UserInfoTableViewCell class] contentViewWidth:[self cellContentViewWith]];
+    
+    
 }
 
 - (CGFloat)cellContentViewWith

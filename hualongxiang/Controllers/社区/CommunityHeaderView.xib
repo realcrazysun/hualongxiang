@@ -102,7 +102,7 @@
                                 <constraint firstAttribute="width" constant="100" id="RAu-eV-1Ya"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" title="24小时热点&gt;">
+                            <state key="normal" title="24小时热点 ▿">
                                 <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
@@ -159,6 +159,7 @@
                 </mask>
             </variation>
             <connections>
+                <outlet property="chooseBtn" destination="HbM-UP-9qT" id="bWP-yf-uIV"/>
                 <outlet property="indicatorView" destination="eCn-QT-K6g" id="BLr-n1-0Uo"/>
                 <outlet property="leftBtn" destination="tPG-oY-1Gs" id="xfG-Ad-XJw"/>
                 <outlet property="rightBtn" destination="HzF-xp-af0" id="9EV-N5-8FA"/>

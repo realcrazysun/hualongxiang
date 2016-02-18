@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 typedef NS_ENUM(NSUInteger,PhotoType) {
     PhotoTypeDay = 0,
     PhotoTypeWeek,

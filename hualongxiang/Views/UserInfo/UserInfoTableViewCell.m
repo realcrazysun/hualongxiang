@@ -11,6 +11,7 @@
 #import "UIView+Util.h"
 #import "UIColor+Wonderful.h"
 #import "UIImageView+Util.h"
+#import "NSString+FontAwesome.h"
 @interface UserInfoTableViewCell(){
     UIImageView *_iconView;
     UILabel *_nameLable;
@@ -18,7 +19,7 @@
     UILabel *_timeLabel;
     UILabel* _fromLabel;
     UILabel *_contentLabel;
-   
+    
     SDWeiXinPhotoContainerView *_picContainerView;
     
     UILabel* _likeLabel;//点赞
@@ -54,19 +55,23 @@
     _timeLabel.textColor = [UIColor lightGrayColor];
     [_timeLabel setSingleLineAutoResizeWithMaxWidth:250];
     
-      //内容
+    //内容
     _contentLabel = [UILabel new];
     _contentLabel.font = [UIFont systemFontOfSize:15];
     _contentLabel.numberOfLines = 4;
     _contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
-
-      //图片展示
+    
+    //图片展示
     _picContainerView = [SDWeiXinPhotoContainerView new];
-
+    
     //评论按钮
     _commentLabel = [UILabel new];
+    _commentLabel.textColor = [UIColor grayColor];
+    _commentLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:13];
+    
     _likeLabel = [UILabel new];
-
+    _likeLabel.textColor = [UIColor grayColor];
+    _likeLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:13];
     //分割view
     UIView* sepView = [UIView new];
     sepView.backgroundColor = [UIColor silverColor];
@@ -101,7 +106,7 @@
     .centerYEqualToView(_nameLable)
     .heightIs(18)
     .widthIs(18);
- 
+    
     _timeLabel.sd_layout
     .leftEqualToView(_nameLable)
     .topSpaceToView(_nameLable,5)
@@ -118,7 +123,7 @@
     
     
     _picContainerView.sd_layout
-    .leftSpaceToView(contentView,margin)
+    .leftEqualToView(_nameLable)
     .topSpaceToView(_contentLabel,5);
     
     
@@ -126,14 +131,14 @@
     _commentLabel.sd_layout
     .topSpaceToView(_picContainerView,margin)
     .rightSpaceToView(contentView,margin)
-    .heightIs(15)
-    .widthIs(64);
+    .heightIs(10)
+    .widthIs(40);
     
     _likeLabel.sd_layout
     .rightSpaceToView(_commentLabel,margin)
     .topEqualToView(_commentLabel)
-    .heightIs(15)
-    .widthIs(64);
+    .heightIs(10)
+    .widthIs(40);
     
     sepView.sd_layout
     .topSpaceToView(_commentLabel,margin*2)
@@ -171,8 +176,8 @@
     }
     _picContainerView.picPathStringsArray = muteArr;
     
-    _likeLabel.text = [NSString stringWithFormat:@"%d",model.pingcount];
-    _commentLabel.text = [NSString stringWithFormat:@"%d",model.replies];
+    _likeLabel.text = [NSString stringWithFormat:@"%@ %d",[NSString fontAwesomeIconStringForEnum:FAThumbsUp],model.pingcount];
+    _commentLabel.text = [NSString stringWithFormat:@"%@ %d",[NSString fontAwesomeIconStringForEnum:FAComments],model.replies];
     //_address.text = model.address;
     
     //    CGFloat picContainerTopMargin = 0;
@@ -189,7 +194,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 

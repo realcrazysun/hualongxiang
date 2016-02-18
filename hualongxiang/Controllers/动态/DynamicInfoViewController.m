@@ -11,12 +11,12 @@
 #import "HotInfoTableViewController.h"
 #import "ActivityInfoController.h"
 #import "SearchViewController.h"
-#warning  1、加载数据分页  2、各tableview点击事件
+
 @implementation DynamicInfoViewController
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-#warning 不加会导致多出一块空的
+
     self.automaticallyAdjustsScrollViewInsets=NO;
     //导航栏添加图片
     UIImageView* navImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_home_top"]];
@@ -48,6 +48,7 @@
     self.contentView.showsHorizontalScrollIndicator = NO;
     self.contentView.bounces = NO ;
     self.contentView.delegate = self;
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

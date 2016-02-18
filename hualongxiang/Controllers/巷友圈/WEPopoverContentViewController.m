@@ -17,17 +17,14 @@
 #pragma mark -
 #pragma mark Initialization
 
-- (instancetype)initWithStyle:(UITableViewStyle)style currentType:(NSUInteger)currentTypeIndex{
+- (instancetype)initWithStyle:(UITableViewStyle)style currentType:(NSUInteger)currentTypeIndex typeArray:(NSArray*)typeArray{
     // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
     if ((self = [super initWithStyle:style])) {
         
-        _typeArr = [[NSMutableArray alloc] initWithArray:itemArr];
+        _typeArr = [[NSMutableArray alloc] initWithArray:typeArray];
         [_typeArr removeObjectAtIndex:currentTypeIndex];
-        if ([self respondsToSelector:@selector(setPreferredContentSize:)]) {
-            self.preferredContentSize = CGSizeMake(150, 2 * 40 - 1);
-        } else {
-            self.contentSizeForViewInPopover = CGSizeMake(150, 2 * 40 - 1 );
-        }
+        self.preferredContentSize = CGSizeMake(150, 2 * 40 - 1);
+        
     }
     return self;
 }
@@ -35,12 +32,13 @@
 #pragma mark -
 #pragma mark View lifecycle
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.scrollEnabled = NO;
-	self.tableView.rowHeight = 35;
-	self.view.backgroundColor = [UIColor lightGrayColor];
+    self.tableView.rowHeight = 35;
+    self.view.backgroundColor = [UIColor lightGrayColor];
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -58,7 +56,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 2;
+    return _typeArr.count;
 }
 
 
@@ -73,11 +71,13 @@
     }
     
     // Configure the cell...
-  
-	cell.textLabel.text = _typeArr[indexPath.row];
-	cell.textLabel.textColor = [UIColor whiteColor];
+    
+    cell.textLabel.text = _typeArr[indexPath.row];
+    cell.textLabel.textColor = [UIColor whiteColor];
     cell.textLabel.textAlignment = NSTextAlignmentCenter;
     cell.backgroundColor = [UIColor lightGrayColor];
+//    cell.textLabel.font = [UIFont systemFontOfSize:14];
+    cell.textLabel.textAlignment = NSTextAlignmentJustified;
     return cell;
 }
 

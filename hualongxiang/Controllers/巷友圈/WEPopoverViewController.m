@@ -101,7 +101,7 @@
 }
 
 - (void)dealloc {
-	[self viewDidUnload];
+//	[self viewDidUnload];
 }
 
 @end
